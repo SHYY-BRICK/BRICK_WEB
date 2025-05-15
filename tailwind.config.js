@@ -1,0 +1,57 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        white: "#FFFFFF",
+        black: "#000000",
+        primary: "#DE2518",
+        blue: "#257AF3",
+        red: "#EC4A4A",
+        buy: "#80CCFF",
+        sell: "#43DB80",
+        grey: {
+          100: "#FFFFFF",
+          200: "#FDFDFD",
+          300: "#F7F7F7",
+          400: "#F1F1F1",
+          500: "#DDDDDD",
+          600: "#C6C6C6",
+          700: "#989898",
+          800: "#6A6A6A",
+          900: "#585858",
+          1000: "#3C3C3C",
+          1100: "#353535",
+          1200: "#2C2C2C",
+          1300: "#1A1A1A",
+        },
+      },
+      fontFamily: {
+        bold: ["'WantedSans-bold'", "sans-serif"],
+        regular: ["'WantedSans-Regular'", "sans-serif"],
+        semibold: ["'WantedSans-SemiBold'", "sans-serif"],
+        medium: ["'WantedSans-Medium'", "sans-serif"],
+      },
+      fontSize: {
+        D1: ["72px", { lineHeight: "110%" }],
+        D2: ["60px", { lineHeight: "110%" }],
+        D3: ["48px", { lineHeight: "110%" }],
+        H1: ["36px", { lineHeight: "140%", letterSpacing: "0.25px" }],
+        H2: ["28px", { lineHeight: "140%" }],
+        H3: ["24px", { lineHeight: "140%", letterSpacing: "0.15px" }],
+        H4: ["20px", { lineHeight: "140%", letterSpacing: "0.15px" }],
+        p1: ["18px", { lineHeight: "160%", letterSpacing: "-0.15px" }],
+        p2: ["16px", { lineHeight: "160%" }],
+        p3: ["14px", { lineHeight: "160%", letterSpacing: "-0.1%" }],
+        caption: ["12px", { lineHeight: "140%" }],
+      },
+    },
+  },
+  plugins: [],
+};
