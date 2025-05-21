@@ -37,7 +37,6 @@ const Header = ({ name }: HeaderProps) => {
             </span>
             <span className="text-primary">123,456</span>
           </div>
-
           {isLogin ? (
             <>
               <BellIcon hasNotification={true} />
@@ -48,7 +47,6 @@ const Header = ({ name }: HeaderProps) => {
                 >
                   {name} 님
                 </span>
-
                 {showDropdown && (
                   <div className="absolute right-0 mt-2 bg-white border shadow-md z-10 rounded-2xl border-grey-500">
                     <button
@@ -68,8 +66,6 @@ const Header = ({ name }: HeaderProps) => {
           )}
         </div>
       </div>
-
-      {/* 하단 네비게이션 */}
       <div className="flex pt-1.5">
         {NavContents.map((item) => (
           <button
