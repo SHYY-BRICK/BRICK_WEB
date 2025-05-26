@@ -16,6 +16,7 @@ module.exports = {
         red: "#EC4A4A",
         buy: "#80CCFF",
         sell: "#43DB80",
+        hoverBtn: "#0FA896",
         grey: {
           100: "#FFFFFF",
           200: "#FDFDFD",
