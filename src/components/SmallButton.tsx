@@ -1,23 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import React from "react";
 
 interface SmallButtonProps {
   text: string;
+  colorType: "primary" | "transparent" | "red";
 }
 
-const SmallButton = ({ text }: SmallButtonProps) => {
-  const [isClicked, setIsClicked] = useState(false);
-
-  const handleClick = () => {
-    setIsClicked((prev) => !prev);
+const SmallButton = ({ text, colorType = "transparent" }: SmallButtonProps) => {
+  const colorClasses = {
+    primary: "bg-primary text-white",
+    transparent: "bg-transparent text-grey-600",
+    red: "bg-red text-white",
   };
+
   return (
     <button
-      onClick={handleClick}
-      className={`w-fit py-1 px-3 rounded-lg  text-p1 font-[regular] hover:bg-red hover:text-white ${
-        isClicked ? "bg-primary text-white" : "bg-transparent text-grey-600"
-      }`}
+      className={`w-fit py-1 px-3 rounded-lg text-p1 font-[regular] ${colorClasses[colorType]}`}
     >
       {text}
     </button>
