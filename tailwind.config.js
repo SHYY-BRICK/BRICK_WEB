@@ -47,6 +47,7 @@ module.exports = {
         h2: ["28px", { lineHeight: "140%" }],
         h3: ["24px", { lineHeight: "140%", letterSpacing: "0.15px" }],
         h4: ["20px", { lineHeight: "140%", letterSpacing: "0.15px" }],
+        h5: ["18px", { lineHeight: "140%", letterSpacing: "0.15px" }],
         p1: ["18px", { lineHeight: "160%", letterSpacing: "-0.15px" }],
         p2: ["16px", { lineHeight: "160%" }],
         p3: ["14px", { lineHeight: "160%", letterSpacing: "-0.1%" }],
