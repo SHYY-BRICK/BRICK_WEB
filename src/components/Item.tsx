@@ -24,7 +24,7 @@ const Item = ({ category, name }: ItemProps) => {
         height={160}
         className="scale-[2] -translate-y-6 object-contain"
       />
-      <span className="text-primary text-h4 font-[semibold]">
+      <span className="text-primary text-h4 font-semibold">
         {matchedItem.name}
       </span>
     </main>

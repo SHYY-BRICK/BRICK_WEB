@@ -10,7 +10,7 @@ const CoinAlert = ({ status }: CoinStatusProps) => {
     <main className="flex flex-col w-[560px] items-center justify-center p-9 rounded-lg gap-8">
       <div className="flex flex-col w-full gap-3">
         <div className="flex justify-between w-full">
-          <span className="text-h3 text-grey-1000 font-[semibold]">
+          <span className="text-h3 text-grey-1000 font-semibold">
             Coin {status}하기
           </span>
           <CloseIcon />
@@ -26,15 +26,15 @@ const CoinAlert = ({ status }: CoinStatusProps) => {
       <input
         type="number"
         placeholder={`${status} 할 코인의 개수를 입력해 주십시오`}
-        className="w-full px-4 py-3 text-p1 border border-grey-500 rounded-lg focus:outline-none font-[regular] text-p2 text-grey-1300 placeholder:text-grey-600"
+        className="w-full px-4 py-3 text-p1 border border-grey-500 rounded-lg focus:outline-none font-regular text-p2 text-grey-1300 placeholder:text-grey-600"
       />
 
       <div className="flex ml-auto gap-4 text-h5">
-        <button className="px-3 py-1 font-[semibold] text-grey-600 rounded-lg">
+        <button className="px-3 py-1 font-semibold text-grey-600 rounded-lg">
           취소
         </button>
         <button
-          className={`px-3 py-1.5 font-[semibold] text-white rounded-lg ${
+          className={`px-3 py-1.5 font-semibold text-white rounded-lg ${
             status === "매도" ? "bg-sell" : "bg-buy"
           }`}
         >

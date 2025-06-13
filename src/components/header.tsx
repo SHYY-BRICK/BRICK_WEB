@@ -32,7 +32,7 @@ const Header = ({ name }: HeaderProps) => {
         <Logo />
         <div className="relative flex items-center gap-4">
           <div className="flex items-center gap-2">
-            <span className="text-grey-700 font-[regular] text-p1">
+            <span className="text-grey-700 font-regular text-p1">
               현재 내 자산
             </span>
             <span className="text-primary">123,456</span>
@@ -42,7 +42,7 @@ const Header = ({ name }: HeaderProps) => {
               <BellIcon hasNotification={true} />
               <div className="relative">
                 <span
-                  className="text-grey-700 text-p1 font-[regular] cursor-pointer"
+                  className="text-grey-700 text-p1 font-regular cursor-pointer"
                   onClick={() => setShowDropdown((prev) => !prev)}
                 >
                   {name} 님
