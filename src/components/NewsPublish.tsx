@@ -12,7 +12,7 @@ const NewsPublish = () => {
   return (
     <main className="flex flex-col w-[35rem] p-[2.1rem] gap-9 rounded-lg">
       <header className="flex w-full justify-between items-center">
-        <p className="text-h3 text-grey-1200">뉴스 출판일 설정</p>
+        <p className="text-h3 text-grey-1200 font-semibold">뉴스 출판일 설정</p>
         <CloseIcon />
       </header>
 
