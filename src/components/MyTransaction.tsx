@@ -27,7 +27,9 @@ const MyTransaction = ({
   return (
     <main className="flex justify-between w-[32.5rem] py-5 border-b border-grey-500">
       <article className="flex items-center">
-        <p className={`text-h5 font-semibold pr-4 ${typeColor}`}>{type}</p>
+        <p className={`pl-[0.375rem] text-h5 font-semibold pr-4 ${typeColor}`}>
+          {type}
+        </p>
         <figure>
           {Icon ? <Icon /> : <div className="bg-red-400 w-4 h-4" />}
         </figure>
