@@ -2,6 +2,7 @@ import Brick from "@/assets/coins/Brick";
 import Bubble from "@/assets/coins/Bubble";
 import Buma from "@/assets/coins/Buma";
 import Fla from "@/assets/coins/Fla";
+import Harp from "@/assets/coins/Harp";
 import Ioj from "@/assets/coins/Ioj";
 import Maru from "@/assets/coins/Maru";
 import Match from "@/assets/coins/Match";
@@ -56,7 +57,7 @@ export const coins: Coin[] = [
     id: 5,
     label: "하프",
     name: "하프 (HAP)",
-    image: null,
+    image: Harp,
     mainInfo:
       "[사용자가 손쉽게 여행 일정을 작성하고 관리할 수 있도록 돕는 AI 기반의 여행 계획 도우미]",
     info: "여행지를 검색하고 평가를 비교하는 번거로운 과정 없이, AI와 친근하게 대화하며 사용자의 취향과 목적에 맞는 최적의 장소들을 자동으로 추천하고, 전체 여행 일정을 효율적으로 구성해 줍니다.",
