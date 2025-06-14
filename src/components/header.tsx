@@ -27,7 +27,7 @@ const Header = ({ name }: HeaderProps) => {
   };
 
   return (
-    <main className="relative flex-col px-16 bg-white">
+    <main className="relative w-full flex-col px-16 bg-white">
       <div className="flex justify-between py-3.5">
         <Logo />
         <div className="relative flex items-center gap-4">
