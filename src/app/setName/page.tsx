@@ -15,7 +15,7 @@ const Page = () => {
       return;
     }
 
-    router.push("/choosechar");
+    router.push("/set-char");
   };
 
   return (
