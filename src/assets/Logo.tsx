@@ -1,11 +1,17 @@
 import Link from "next/link";
+import { SVGProps } from "react";
 
-const Logo = ({ ...props }) => {
+interface LogoProps extends SVGProps<SVGSVGElement> {
+  width?: number | string;
+  height?: number | string;
+}
+
+const Logo = ({ width = 61, height = 37, ...props }: LogoProps) => {
   return (
     <Link href="/">
       <svg
-        width="61"
-        height="37"
+        width={width}
+        height={height}
         viewBox="0 0 61 37"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
