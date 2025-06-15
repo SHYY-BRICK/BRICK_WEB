@@ -2,14 +2,18 @@
 
 import Logo from "@/assets/Logo";
 import BellIcon from "./BellIcon";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
 interface HeaderProps {
   name: string;
 }
 
 const Header = ({ name }: HeaderProps) => {
-  const [selectedTab, setSelectedTab] = useState("주식");
+  const pathname = usePathname();
+  const router = useRouter();
+  const [selectedTab, setSelectedTab] = useState("");
+
   const [isLogin] = useState(true);
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -21,6 +25,13 @@ const Header = ({ name }: HeaderProps) => {
     { id: 5, content: "마이 페이지", url: "/mypage" },
     { id: 6, content: "MATCH", url: "/match" },
   ];
+
+  useEffect(() => {
+    const matched = NavContents.find((nav) => pathname.startsWith(nav.url));
+    if (matched) {
+      setSelectedTab(matched.content);
+    }
+  }, [pathname]);
 
   const handleLogout = () => {
     alert("로그아웃 되었습니다.");
@@ -70,7 +81,7 @@ const Header = ({ name }: HeaderProps) => {
         {NavContents.map((item) => (
           <button
             key={item.id}
-            onClick={() => setSelectedTab(item.content)}
+            onClick={() => router.push(item.url)}
             className={`text-p1 font-[medium] px-3 pb-2 relative ${
               selectedTab === item.content ? "text-grey-1200" : "text-grey-700"
             }`}
