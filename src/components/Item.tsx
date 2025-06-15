@@ -17,7 +17,7 @@ const Item = ({ category, name }: ItemProps) => {
   }
 
   return (
-    <main className="flex flex-col items-center justify-center w-[216px] h-[248px] gap-5 rounded-xl bg-white">
+    <main className="flex flex-col items-center justify-center w-[216px] h-[248px] gap-5 rounded-xl bg-white overflow-hidden">
       <Image
         src={matchedItem.image}
         alt={matchedItem.name}
