@@ -28,8 +28,15 @@ const ItemExplan = ({ category, name, isMine, onClose }: ItemProps) => {
       />
       <section className="flex flex-col justify-between w-full">
         <header className="flex flex-col w-full">
-          <span className="text-h4 text-grey-1000">{matchedItem.name}</span>
-          <span className="text-p2 text-grey-700">{matchedItem.info}</span>
+          <span className="text-h4 text-grey-1000 font-semibold">
+            {matchedItem.name}{" "}
+            <span className="text-p3 text-grey-600 font-regular">
+              {matchedItem.rank}
+            </span>
+          </span>
+          <span className="text-p2 text-grey-700 font-regular">
+            {matchedItem.info}
+          </span>
         </header>
         <figure className="flex ml-auto gap-2">
           {isMine ? (
