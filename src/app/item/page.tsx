@@ -8,6 +8,7 @@ import SmallButton from "@/components/SmallButton";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import ShowItem from "./ShowItem";
+import ClothesList from "./ClothesList";
 
 const Animation = dynamic(() => import("./Animation"), { ssr: false });
 
@@ -29,34 +30,46 @@ const itemInfo = [
 ];
 
 const Page = () => {
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [isAnimationDone, setIsAnimationDone] = useState(false);
   const [category, setCategory] = useState<"clothes" | "accessory">(
     "accessory",
+  );
+  const [mode, setMode] = useState<"main" | "list" | "animation" | "show">(
+    "main",
   );
 
   const handleDraw = (selectedCategory: "clothes" | "accessory") => {
     setCategory(selectedCategory);
-    setIsAnimating(true);
+    setMode("animation");
     setTimeout(() => {
-      setIsAnimating(false);
-      setIsAnimationDone(true);
+      setMode("show");
     }, 5000);
   };
 
+  const handleCloseShowItem = () => {
+    setMode("main");
+  };
+
   return (
-    <div className="relative w-[100vw] h-[100vh] flex flex-col gap-[6.25rem] items-center bg-grey-300 overflow-hidden">
+    <div className="relative min-h-screen flex flex-col items-center bg-grey-300 overflow-y-auto">
       <Header name="김시연" />
 
-      {!isAnimating && !isAnimationDone && (
-        <main className="flex gap-[6.25rem] z-10">
+      {mode === "main" && (
+        <main className="flex gap-[6.25rem] z-10 mt-12">
           {itemInfo.map((detail) => (
             <article key={detail.id} className="flex flex-col gap-8">
               <Image src={detail.img} alt={detail.draw} />
               <figure className="flex justify-between">
                 <button
                   className="py-2 px-3 border border-grey-600 rounded-lg text-p1 text-grey-800 font-regular"
-                  onClick={() => (window.location.href = detail.showDrawLink)}
+                  onClick={() => {
+                    if (detail.id === 1) {
+                      setCategory("clothes");
+                      setMode("list");
+                    } else {
+                      setCategory("accessory");
+                      setMode("list");
+                    }
+                  }}
                 >
                   {detail.other}
                 </button>
@@ -73,18 +86,17 @@ const Page = () => {
         </main>
       )}
 
-      {isAnimating && (
-        <div className="absolute top-0 left-0 w-full h-full z-50">
+      {mode === "list" && <ClothesList category={category} />}
+
+      {mode === "animation" && (
+        <div className="fixed top-0 left-0 w-full h-full z-50">
           <Animation />
         </div>
       )}
 
-      {isAnimationDone && (
-        <div className="absolute top-0 left-0 w-full h-full z-50 flex justify-center items-center">
-          <ShowItem
-            category={category}
-            onClose={() => setIsAnimationDone(false)}
-          />
+      {mode === "show" && (
+        <div className="fixed top-0 left-0 w-full h-full z-50 flex justify-center items-center">
+          <ShowItem category={category} onClose={handleCloseShowItem} />
         </div>
       )}
     </div>
