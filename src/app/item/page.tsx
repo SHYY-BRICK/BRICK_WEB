@@ -8,7 +8,7 @@ import SmallButton from "@/components/SmallButton";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import ShowItem from "./ShowItem";
-import ClothesList from "./ClothesList";
+import ItemList from "./ItemList";
 
 const Animation = dynamic(() => import("./Animation"), { ssr: false });
 
@@ -86,7 +86,7 @@ const Page = () => {
         </main>
       )}
 
-      {mode === "list" && <ClothesList category={category} />}
+      {mode === "list" && <ItemList category={category} />}
 
       {mode === "animation" && (
         <div className="fixed top-0 left-0 w-full h-full z-50">
