@@ -1,6 +1,9 @@
+"use client";
+
 import Header from "@/components/Header";
 import NewsBig from "@/components/NewsBig";
 import NewsSmall from "@/components/NewsSmall";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const newsData = [
@@ -101,6 +104,11 @@ const beforeNews = [
 ];
 
 const Page = () => {
+  const router = useRouter();
+
+  const handleClick = (id: number) => {
+    router.push(`/news/${id}`);
+  };
   return (
     <div className="bg-grey-300">
       <Header name="김시연" />
@@ -109,7 +117,7 @@ const Page = () => {
           <p className="text-h3 text-grey-1200 font-semibold">오늘의 뉴스</p>
           <section className="flex justify-between gap-6">
             {newsData.map((data) => (
-              <article key={data.id}>
+              <article key={data.id} onClick={() => handleClick(data.id)}>
                 <NewsBig
                   title={data.title}
                   description={data.description}
@@ -123,7 +131,7 @@ const Page = () => {
           <p className="text-h3 text-grey-1200 font-semibold">이전 뉴스</p>
           <section className="grid grid-cols-1 lg:grid-cols-4 gap-x-6 gap-y-5">
             {beforeNews.map((data) => (
-              <article key={data.id}>
+              <article key={data.id} onClick={() => handleClick(data.id)}>
                 <NewsSmall
                   title={data.title}
                   description={data.description}
