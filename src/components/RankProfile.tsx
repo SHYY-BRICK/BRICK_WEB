@@ -27,7 +27,9 @@ const RankProfile = ({ rank, classInfo, name, amount }: RankProfileProps) => {
           </figure>
         </figure>
       </article>
-      <article className="flex items-center">{formattedAmount}</article>
+      <p className="flex items-center text-p1 text-grey-1100 font-regular">
+        {formattedAmount}
+      </p>
     </main>
   );
 };
