@@ -10,7 +10,7 @@ const Teachmon = () => {
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
     >
-      <g clip-path="url(#clip0_1023_3047)">
+      <g clipPath="url(#clip0_1023_3047)">
         <path
           d="M32 16C32 7.16344 24.8366 0 16 0C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32C24.8366 32 32 24.8366 32 16Z"
           fill="url(#pattern0_1023_3047)"
