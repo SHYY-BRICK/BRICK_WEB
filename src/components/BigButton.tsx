@@ -1,23 +1,14 @@
-"use client";
-
-import { useState } from "react";
-
 interface BigButtonProps {
   text: string;
+  colorType: "buy" | "sell";
 }
 
-const BigButton = ({ text }: BigButtonProps) => {
-  const [isClicked, setIsClicked] = useState(false);
-
-  const handleClick = () => {
-    setIsClicked((prev) => !prev);
-  };
+const BigButton = ({ text, colorType }: BigButtonProps) => {
   return (
     <button
-      onClick={handleClick}
-      className={`w-fit py-[0.5625rem] px-8 rounded-lg text-white text-h3 font-semibold hover:bg-hoverBtn ${
-        isClicked ? "bg-primary" : "bg-grey-600"
-      }`}
+      className={`w-fit py-[0.5625rem] px-8 rounded-lg text-white text-h3 font-semibold 
+        ${colorType === "buy" ? "bg-buy" : "bg-sell"}
+      `}
     >
       {text}
     </button>
