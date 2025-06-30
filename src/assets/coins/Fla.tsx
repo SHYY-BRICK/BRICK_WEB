@@ -9,7 +9,7 @@ const Fla = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_1026_3083)">
+      <g clipPath="url(#clip0_1026_3083)">
         <path
           d="M8.31111 11.3516H2.77037V14.2751H8.14815V16.6267H2.77037V20.9802L0.684444 21.6952C0.228148 21.8541 0 21.7111 0 21.2662V9H8.31111V11.3516Z"
           fill="#007BFF"

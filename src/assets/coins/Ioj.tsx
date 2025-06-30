@@ -86,8 +86,8 @@ const Ioj = () => {
           y2="21.0149"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#0092FF" />
-          <stop offset="1" stop-color="#003D99" />
+          <stop stopColor="#0092FF" />
+          <stop offset="1" stopColor="#003D99" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_1026_3086"
@@ -97,8 +97,8 @@ const Ioj = () => {
           y2="21.0149"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#0092FF" />
-          <stop offset="1" stop-color="#003D99" />
+          <stop stopColor="#0092FF" />
+          <stop offset="1" stopColor="#003D99" />
         </linearGradient>
         <linearGradient
           id="paint2_linear_1026_3086"
@@ -108,8 +108,8 @@ const Ioj = () => {
           y2="21.0149"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#0092FF" />
-          <stop offset="1" stop-color="#003D99" />
+          <stop stopColor="#0092FF" />
+          <stop offset="1" stopColor="#003D99" />
         </linearGradient>
         <linearGradient
           id="paint3_linear_1026_3086"
@@ -119,8 +119,8 @@ const Ioj = () => {
           y2="21.0149"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#0092FF" />
-          <stop offset="1" stop-color="#003D99" />
+          <stop stopColor="#0092FF" />
+          <stop offset="1" stopColor="#003D99" />
         </linearGradient>
         <linearGradient
           id="paint4_linear_1026_3086"
@@ -130,8 +130,8 @@ const Ioj = () => {
           y2="21.0149"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#0092FF" />
-          <stop offset="1" stop-color="#003D99" />
+          <stop stopColor="#0092FF" />
+          <stop offset="1" stopColor="#003D99" />
         </linearGradient>
         <linearGradient
           id="paint5_linear_1026_3086"
@@ -141,8 +141,8 @@ const Ioj = () => {
           y2="21.0149"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#0092FF" />
-          <stop offset="1" stop-color="#003D99" />
+          <stop stopColor="#0092FF" />
+          <stop offset="1" stopColor="#003D99" />
         </linearGradient>
       </defs>
     </svg>
