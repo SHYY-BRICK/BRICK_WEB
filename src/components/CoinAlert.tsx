@@ -3,9 +3,10 @@ import React from "react";
 
 interface CoinStatusProps {
   status: "매수" | "매도";
+  onClose: () => void;
 }
 
-const CoinAlert = ({ status }: CoinStatusProps) => {
+const CoinAlert = ({ status, onClose }: CoinStatusProps) => {
   return (
     <main className="flex flex-col w-[560px] items-center justify-center p-9 rounded-lg gap-8">
       <div className="flex flex-col w-full gap-3">
@@ -13,7 +14,9 @@ const CoinAlert = ({ status }: CoinStatusProps) => {
           <span className="text-h3 text-grey-1000 font-semibold">
             Coin {status}하기
           </span>
-          <CloseIcon />
+          <div onClick={onClose} className="cursor-pointer">
+            <CloseIcon />
+          </div>
         </div>
         <div className="flex flex-col text-p2 text-grey-1000">
           <span>현재 가지고 계신 자산은 100,000,000원 입니다.</span>
@@ -30,7 +33,10 @@ const CoinAlert = ({ status }: CoinStatusProps) => {
       />
 
       <div className="flex ml-auto gap-4 text-h5">
-        <button className="px-3 py-1 font-semibold text-grey-600 rounded-lg">
+        <button
+          onClick={onClose}
+          className="px-3 py-1 font-semibold text-grey-600 rounded-lg"
+        >
           취소
         </button>
         <button

@@ -1,6 +1,7 @@
 "use client";
 
 import BigButton from "@/components/BigButton";
+import CoinAlert from "@/components/CoinAlert";
 import CoinChart from "@/components/CoinChart";
 import Header from "@/components/Header";
 import SmallButton from "@/components/SmallButton";
@@ -89,6 +90,9 @@ const coins = [
 
 const Page = () => {
   const [selectedCoin, setSelectedCoin] = useState(coins[0]);
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState<"매수" | "매도" | null>(null);
+
   return (
     <div className="w-[100vw] h-[100vh] overflow-hidden bg-grey-300">
       <Header name="김시연" />
@@ -104,8 +108,22 @@ const Page = () => {
             <CoinChart coin={selectedCoin} />
           </section>
           <figure className="flex w-full justify-end gap-6 pt-[94px]">
-            <BigButton text="매수" colorType="buy" />
-            <BigButton text="매도" colorType="sell" />
+            <BigButton
+              text="매수"
+              colorType="buy"
+              onClick={() => {
+                setModalType("매수");
+                setShowModal(true);
+              }}
+            />
+            <BigButton
+              text="매도"
+              colorType="sell"
+              onClick={() => {
+                setModalType("매도");
+                setShowModal(true);
+              }}
+            />
           </figure>
         </section>
         <aside className="w-[25%] py-10 rounded-l-2xl bg-white h-screen overflow-y-auto">
@@ -128,6 +146,13 @@ const Page = () => {
           </section>
         </aside>
       </main>
+      {showModal && modalType && (
+        <div className="fixed inset-0 z-50 bg-[rgba(39,39,39,0.2)] backdrop-blur-sm  flex items-center justify-center">
+          <div className="bg-white rounded-xl shadow-lg">
+            <CoinAlert status={modalType} onClose={() => setShowModal(false)} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
