@@ -13,7 +13,6 @@ const Header = ({ name }: HeaderProps) => {
   const pathname = usePathname();
   const router = useRouter();
   const [selectedTab, setSelectedTab] = useState("");
-
   const [isLogin] = useState(true);
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -26,12 +25,20 @@ const Header = ({ name }: HeaderProps) => {
     { id: 6, content: "MATCH", url: "/match" },
   ];
 
+  const AdminNavContests = [
+    { id: 1, content: "어드민 페이지", url: "/admin" },
+    { id: 2, content: "MATCH", url: "/match" },
+  ];
+
+  const isAdminPage = pathname.startsWith("/admin");
+  const navList = isAdminPage ? AdminNavContests : NavContents;
+
   useEffect(() => {
-    const matched = NavContents.find((nav) => pathname.startsWith(nav.url));
+    const matched = navList.find((nav) => pathname.startsWith(nav.url));
     if (matched) {
       setSelectedTab(matched.content);
     }
-  }, [pathname]);
+  }, [pathname, navList]);
 
   const handleLogout = () => {
     alert("로그아웃 되었습니다.");
@@ -77,8 +84,9 @@ const Header = ({ name }: HeaderProps) => {
           )}
         </div>
       </div>
+
       <div className="flex pt-1.5">
-        {NavContents.map((item) => (
+        {navList.map((item) => (
           <button
             key={item.id}
             onClick={() => router.push(item.url)}

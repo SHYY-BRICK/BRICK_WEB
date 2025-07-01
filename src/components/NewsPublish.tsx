@@ -4,16 +4,22 @@ import CloseIcon from "@/assets/CloseIcon";
 import React, { useState } from "react";
 import SmallButton from "./SmallButton";
 
-const NewsPublish = () => {
+interface Props {
+  onClose: () => void;
+}
+
+const NewsPublish = ({ onClose }: Props) => {
   const [selectedTime, setSelectedTime] = useState<"am" | "pm" | null>(null);
 
   const isSelected = (time: "am" | "pm") => selectedTime === time;
 
   return (
-    <main className="flex flex-col w-[35rem] p-[2.1rem] gap-9 rounded-lg">
+    <main className="flex flex-col w-[35rem] p-[2.1rem] gap-9 rounded-lg bg-white">
       <header className="flex w-full justify-between items-center">
         <p className="text-h3 text-grey-1200 font-semibold">뉴스 출판일 설정</p>
-        <CloseIcon />
+        <figure className="cursor-pointer" onClick={onClose}>
+          <CloseIcon />
+        </figure>
       </header>
 
       <article className="flex flex-col gap-1">
@@ -52,7 +58,7 @@ const NewsPublish = () => {
       </article>
 
       <article className="ml-auto flex gap-4">
-        <SmallButton text="취소" colorType="transparent" />
+        <SmallButton text="취소" colorType="transparent" onClick={onClose} />
         <SmallButton text="완료하기" colorType="primary" />
       </article>
     </main>

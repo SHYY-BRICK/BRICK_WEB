@@ -6,6 +6,7 @@ interface NewsBigProps {
   title: string;
   description: string;
   date: string;
+  onClickPublish?: () => void;
 }
 
 const NewsBig = ({
@@ -13,6 +14,7 @@ const NewsBig = ({
   title,
   description,
   date,
+  onClickPublish,
 }: NewsBigProps) => {
   return (
     <main className="flex gap-6 p-6 w-full rounded-xl items-center bg-white">
@@ -26,7 +28,11 @@ const NewsBig = ({
         {publish && (
           <div className="ml-auto">
             <SmallButton text="취소" colorType="transparent" />
-            <SmallButton text="출판" colorType="primary" />
+            <SmallButton
+              text="출판"
+              colorType="primary"
+              onClick={onClickPublish}
+            />
           </div>
         )}
       </article>
