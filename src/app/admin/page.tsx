@@ -60,7 +60,7 @@ const Page = () => {
               description={news.description}
               date={news.date}
               publish
-              onClickPublish={() => setShowModal(true)} // 🔥 출판 버튼 클릭 시 모달 ON
+              onClickPublish={() => setShowModal(true)}
             />
           ))}
         </section>
