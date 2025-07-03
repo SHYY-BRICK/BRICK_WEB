@@ -1,6 +1,7 @@
 import React from "react";
 import { coins } from "@/data/coins";
 import { ComponentType } from "react";
+import { formatNumberWithCommas } from "@/utils/numberFomat";
 
 type TransactionType = "매수" | "매도";
 
@@ -36,7 +37,9 @@ const MyTransaction = ({
         <p className="text-h5 text-grey-1000 font-semibold pl-3">{label}</p>
       </article>
       <article className="flex gap-[4.625rem] items-center">
-        <p className="text-grey-1100 text-h5 font-semibold">{amount}</p>
+        <p className="text-grey-1100 text-h5 font-semibold">
+          {formatNumberWithCommas(amount)}
+        </p>
         <figure className="flex text-p1 text-grey-1100 gap-4">
           <p>{date}</p>
           <p>{period}</p>

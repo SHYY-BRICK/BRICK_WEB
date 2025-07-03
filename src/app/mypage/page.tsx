@@ -12,6 +12,7 @@ import { clothesData } from "@/data/clothes";
 import { accessoriesDate } from "@/data/accessories";
 import { initializeEquipment } from "@/utils/initAvatarState";
 import BoyNomal from "@/assets/characters/boyNomal.png";
+import { formatNumberWithCommas } from "@/utils/numberFomat";
 
 const Page = () => {
   const ClothesDetail = [
@@ -124,7 +125,9 @@ const Page = () => {
               <p className="text-h3 font-semibold text-black pb-3">김시연</p>
               <figure className="flex gap-3 text-h4 font-semibold pb-1">
                 <p className="text-grey-1100">내 자산</p>
-                <p className="text-primary">210312480</p>
+                <p className="text-primary">
+                  {formatNumberWithCommas(210312480)}
+                </p>
               </figure>
               <figure className="flex gap-3 text-h4 font-semibold">
                 <p className="text-grey-1100">내 코인</p>
