@@ -9,9 +9,20 @@ interface ItemProps {
   name: string;
   isMine?: boolean;
   onClose?: () => void;
+  onEquip?: (category: "clothes" | "accessory", name: string) => void;
+  onUnequip?: (category: "clothes" | "accessory") => void;
+  equippedItem?: string | null;
 }
 
-const ItemExplan = ({ category, name, isMine, onClose }: ItemProps) => {
+const ItemExplan = ({
+  category,
+  name,
+  isMine,
+  onClose,
+  onEquip,
+  onUnequip,
+  equippedItem,
+}: ItemProps) => {
   const data = category === "clothes" ? clothesData : accessoriesDate;
   const matchedItem = data.find((item) => item.name === name);
 
@@ -40,10 +51,21 @@ const ItemExplan = ({ category, name, isMine, onClose }: ItemProps) => {
         </header>
         <figure className="flex ml-auto gap-2">
           {isMine ? (
-            <>
-              <SmallButton text="착용" colorType="primary" />
-              <SmallButton text="해제" colorType="red" />
-            </>
+            matchedItem.name === equippedItem ? (
+              // 착용 중인 아이템
+              <SmallButton
+                text="해제"
+                colorType="red"
+                onClick={() => onUnequip?.(category)}
+              />
+            ) : (
+              // 착용 안 한 아이템
+              <SmallButton
+                text="착용"
+                colorType="primary"
+                onClick={() => onEquip?.(category, matchedItem.name)}
+              />
+            )
           ) : (
             <SmallButton text="완료" colorType="primary" onClick={onClose} />
           )}

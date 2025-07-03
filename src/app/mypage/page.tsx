@@ -1,14 +1,17 @@
 "use client";
 
 import Header from "@/components/Header";
-import React, { useState } from "react";
-import Boy from "@/assets/characters/boy.png";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import ItemExplan from "@/components/ItemExplan";
 import LeftArrowIcon from "@/assets/LeftArrowIcon";
 import RightArrowIcon from "@/assets/RightArrowIcon";
 import MyTransaction from "@/components/MyTransaction";
 import SmallButton from "@/components/SmallButton";
+import { clothesData } from "@/data/clothes";
+import { accessoriesDate } from "@/data/accessories";
+import { initializeEquipment } from "@/utils/initAvatarState";
+import BoyNomal from "@/assets/characters/boyNomal.png";
 
 const Page = () => {
   const ClothesDetail = [
@@ -30,6 +33,10 @@ const Page = () => {
 
   const [clothesIndex, setClothesIndex] = useState(0);
   const [accessoryIndex, setAccessoryIndex] = useState(0);
+  const [equippedClothes, setEquippedClothes] = useState<string | null>(null);
+  const [equippedAccessory, setEquippedAccessory] = useState<string | null>(
+    null,
+  );
 
   const ITEMS_PER_PAGE = 3;
 
@@ -55,13 +62,60 @@ const Page = () => {
     }
   };
 
+  const handleEquip = (category: "clothes" | "accessory", name: string) => {
+    if (category === "clothes") {
+      setEquippedClothes(name);
+    } else {
+      setEquippedAccessory(name);
+    }
+  };
+
+  const DEFAULT_CLOTHES = "기본 옷";
+  const handleUnequip = (category: "clothes" | "accessory") => {
+    if (category === "clothes") {
+      setEquippedClothes(DEFAULT_CLOTHES);
+    } else {
+      setEquippedAccessory(null);
+    }
+  };
+
+  useEffect(() => {
+    const defaultItems = {
+      clothes: "개발자룩",
+      accessory: "에어팟",
+    };
+
+    initializeEquipment(defaultItems, setEquippedClothes, setEquippedAccessory); // ✅
+  }, []);
+
   return (
     <div className="w-full min-h-[100vh] flex flex-col bg-grey-300">
       <Header name="김시연" />
       <main className="py-[95px] px-[104px] gap-20">
         <section className="flex flex-col items-center gap-20">
           <section className="flex relative">
-            <Image src={Boy} alt="Boy" />
+            <Image src={BoyNomal} alt="Boy" />
+            {equippedClothes && (
+              <Image
+                src={
+                  clothesData.find((c) => c.name === equippedClothes)?.image ||
+                  ""
+                }
+                alt="clothes"
+                className="absolute top-0 left-0 z-10"
+              />
+            )}
+
+            {equippedAccessory && (
+              <Image
+                src={
+                  accessoriesDate.find((a) => a.name === equippedAccessory)
+                    ?.image || ""
+                }
+                alt="accessory"
+                className="absolute top-0 left-0 z-20"
+              />
+            )}
             <figure className="absolute top-64 right-0">
               <SmallButton text="저장" colorType="primary" />
             </figure>
@@ -110,6 +164,9 @@ const Page = () => {
                         name={item.name}
                         isMine={true}
                         onClose={() => console.log("Item closed")}
+                        onEquip={handleEquip}
+                        onUnequip={handleUnequip}
+                        equippedItem={equippedClothes}
                       />
                     ))}
                   </div>
@@ -144,7 +201,9 @@ const Page = () => {
                         category="accessory"
                         name={item.name}
                         isMine={true}
-                        onClose={() => console.log("Item closed")}
+                        onEquip={handleEquip}
+                        onUnequip={handleUnequip}
+                        equippedItem={equippedAccessory}
                       />
                     ))}
                   </div>
