@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import BsmLogo from "@/assets/BsmLogo";
+import KaKaoLogo from "@/assets/KaKaoLogo";
 import Logo from "@/assets/Logo";
 import CloseIcon from "@/assets/CloseIcon";
 import SmallButton from "@/components/SmallButton";
@@ -27,10 +27,10 @@ const Home = () => {
           </p>
         </figure>
         <figure className="flex flex-col gap-3">
-          <figure className="flex justify-center w-[22.5rem] py-[0.6875rem] gap-[0.6875rem] border border-grey-500 rounded-lg cursor-pointer">
-            <BsmLogo />
+          <figure className="flex justify-center w-[22.5rem] py-[0.6875rem] gap-[0.6875rem] bg-[#FEE500] rounded-lg cursor-pointer">
+            <KaKaoLogo />
             <p className="text-p2 text-grey-1100 font-regular">
-              BSM으로 계속하기
+              카카오로 계속하기
             </p>
           </figure>
           <figure
