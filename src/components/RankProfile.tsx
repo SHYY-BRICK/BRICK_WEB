@@ -2,12 +2,11 @@ import React from "react";
 
 interface RankProfileProps {
   rank: number;
-  classInfo: string;
   name: string;
   amount: number;
 }
 
-const RankProfile = ({ rank, classInfo, name, amount }: RankProfileProps) => {
+const RankProfile = ({ rank, name, amount }: RankProfileProps) => {
   const formattedAmount =
     typeof amount === "number"
       ? amount.toLocaleString()
@@ -19,10 +18,7 @@ const RankProfile = ({ rank, classInfo, name, amount }: RankProfileProps) => {
         <p className="text-h5 text-primary font-semibold">{rank}</p>
         <figure className="flex gap-3">
           <div className="w-[44px] h-[44px] rounded-full bg-black" />
-          <figure className="flex flex-col">
-            <p className="text-caption text-grey-800 font-medium">
-              {classInfo}
-            </p>
+          <figure className="flex items-center">
             <p className="text-h5 text-grey-1100 font-semibold">{name}</p>
           </figure>
         </figure>

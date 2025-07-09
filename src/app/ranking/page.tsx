@@ -10,7 +10,6 @@ import DetailModal from "./Detail";
 const Page = () => {
   const [selectedPerson, setSelectedPerson] = useState<null | {
     name: string;
-    classInfo: string;
     rank: number;
     amount: number;
     weeks: number;
@@ -22,105 +21,90 @@ const Page = () => {
   const rankList = [
     {
       name: "김예진",
-      classInfo: "3학년 2반",
       rank: 4,
       amount: 4872048800,
       weeks: 10,
     },
     {
       name: "김시연",
-      classInfo: "3학년 3반",
       rank: 5,
       amount: 4523048800,
       weeks: 8,
     },
     {
       name: "김예진",
-      classInfo: "3학년 1반",
       rank: 6,
       amount: 4212048800,
       weeks: 6,
     },
     {
       name: "김예진",
-      classInfo: "3학년 1반",
       rank: 7,
       amount: 2720488000,
       weeks: 5,
     },
     {
       name: "김예진",
-      classInfo: "2학년 4반",
       rank: 8,
       amount: 2459088000,
       weeks: 4,
     },
     {
       name: "김예진",
-      classInfo: "1학년 5반",
       rank: 9,
       amount: 2187048800,
       weeks: 3,
     },
     {
       name: "김예진",
-      classInfo: "2학년 2반",
       rank: 10,
       amount: 2078048800,
       weeks: 2,
     },
     {
       name: "김예진",
-      classInfo: "3학년 3반",
       rank: 11,
       amount: 1952048800,
       weeks: 1,
     },
     {
       name: "김예진",
-      classInfo: "1학년 1반",
       rank: 12,
       amount: 1839048800,
       weeks: 0,
     },
     {
       name: "김예진",
-      classInfo: "2학년 1반",
       rank: 13,
       amount: 1723048800,
       weeks: 0,
     },
     {
       name: "김예진",
-      classInfo: "3학년 4반",
       rank: 14,
       amount: 1650048800,
       weeks: 0,
     },
     {
       name: "김예진",
-      classInfo: "2학년 3반",
       rank: 15,
       amount: 1543048800,
       weeks: 0,
     },
     {
       name: "김예진",
-      classInfo: "1학년 2반",
       rank: 16,
       amount: 1432048800,
       weeks: 0,
     },
     {
       name: "김예진",
-      classInfo: "1학년 3반",
       rank: 17,
       amount: 1348048800,
       weeks: 0,
     },
     {
       name: "김예진",
-      classInfo: "2학년 5반",
       rank: 18,
       amount: 1280048800,
       weeks: 0,
@@ -136,7 +120,6 @@ const Page = () => {
             onClick={() =>
               handleClickPerson({
                 name: "김시연",
-                classInfo: "3학년 2반",
                 rank: 2,
                 amount: 2720488000,
                 weeks: 10000,
@@ -158,7 +141,6 @@ const Page = () => {
             onClick={() =>
               handleClickPerson({
                 name: "김예진",
-                classInfo: "3학년 2반",
                 rank: 1,
                 amount: 2720488000,
                 weeks: 10000,
@@ -180,7 +162,6 @@ const Page = () => {
             onClick={() =>
               handleClickPerson({
                 name: "김시연",
-                classInfo: "3학년 1반",
                 rank: 3,
                 amount: 2720488000,
                 weeks: 10000,
@@ -208,7 +189,6 @@ const Page = () => {
               <RankProfile
                 key={profile.rank}
                 name={profile.name}
-                classInfo={profile.classInfo}
                 rank={profile.rank}
                 amount={profile.amount}
               />
@@ -216,7 +196,6 @@ const Page = () => {
           ))}
         </section>
       </main>
-      {/* 🔥 모달 렌더링 */}
       {selectedPerson && (
         <DetailModal
           isOpen={!!selectedPerson}
