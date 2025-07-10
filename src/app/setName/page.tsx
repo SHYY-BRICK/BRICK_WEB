@@ -2,20 +2,32 @@
 
 import Logo from "@/assets/Logo";
 import SmallButton from "@/components/SmallButton";
+import { useUpdateUserDetail } from "@/hooks/useUpdateUserDetail";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const Page = () => {
   const router = useRouter();
   const [inputValue, setInputValue] = useState("");
+  const { mutate } = useUpdateUserDetail();
 
   const handleGoChooseCharacter = () => {
     if (!inputValue.trim()) {
       alert("닉네임을 입력해주세요.");
       return;
     }
-
-    router.push("/set-char");
+    mutate(
+      { nickname: inputValue },
+      {
+        onSuccess: () => {
+          localStorage.setItem("nickname", inputValue);
+          router.push("/setchar");
+        },
+        onError: () => {
+          alert("닉네임을 입력해주세요.");
+        },
+      },
+    );
   };
 
   return (
