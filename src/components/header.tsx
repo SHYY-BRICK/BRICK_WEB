@@ -4,6 +4,7 @@ import Logo from "@/assets/Logo";
 import BellIcon from "./BellIcon";
 import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { useLogout } from "@/hooks/useLogout";
 
 interface HeaderProps {
   name: string;
@@ -32,6 +33,7 @@ const Header = ({ name }: HeaderProps) => {
 
   const isAdminPage = pathname.startsWith("/admin");
   const navList = isAdminPage ? AdminNavContests : NavContents;
+  const { mutate: logout } = useLogout();
 
   useEffect(() => {
     const matched = navList.find((nav) => pathname.startsWith(nav.url));
@@ -39,10 +41,6 @@ const Header = ({ name }: HeaderProps) => {
       setSelectedTab(matched.content);
     }
   }, [pathname, navList]);
-
-  const handleLogout = () => {
-    alert("로그아웃 되었습니다.");
-  };
 
   return (
     <main className="relative w-full flex-col px-16 bg-white">
@@ -69,9 +67,21 @@ const Header = ({ name }: HeaderProps) => {
                   <div className="absolute right-0 mt-2 bg-white border shadow-md z-10 rounded-2xl border-grey-500">
                     <button
                       className="whitespace-nowrap px-6 py-3 text-p1 text-grey-800"
-                      onClick={handleLogout}
+                      // onClick={() => logout()}
+                    >
+                      닉네임 수정
+                    </button>
+                    <button
+                      className="whitespace-nowrap px-6 py-3 text-p1 text-grey-800"
+                      onClick={() => logout()}
                     >
                       로그아웃
+                    </button>
+                    <button
+                      className="whitespace-nowrap px-6 py-3 text-p1 text-grey-800"
+                      // onClick={handleLogout}
+                    >
+                      회원 탈퇴
                     </button>
                   </div>
                 )}
