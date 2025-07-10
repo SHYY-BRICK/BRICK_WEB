@@ -10,9 +10,14 @@ import SmallButton from "@/components/SmallButton";
 const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
+  const KAKAO_AUTH_URL = process.env.NEXT_PUBLIC_KAKAO_AUTH_URL;
 
   const handleContinue = () => {
-    router.push("/main");
+    router.push("/stock");
+  };
+
+  const kakaoLogin = () => {
+    window.location.href = KAKAO_AUTH_URL!;
   };
 
   return (
@@ -27,7 +32,10 @@ const Home = () => {
           </p>
         </figure>
         <figure className="flex flex-col gap-3">
-          <figure className="flex justify-center w-[22.5rem] py-[0.6875rem] gap-[0.6875rem] bg-[#FEE500] rounded-lg cursor-pointer">
+          <figure
+            onClick={kakaoLogin}
+            className="flex justify-center w-[22.5rem] py-[0.6875rem] gap-[0.6875rem] bg-[#FEE500] rounded-lg cursor-pointer"
+          >
             <KaKaoLogo />
             <p className="text-p2 text-grey-1100 font-regular">
               카카오로 계속하기

@@ -9,7 +9,7 @@ const KaKaoLogo = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_1351_3117)">
+      <g clipPath="url(#clip0_1351_3117)">
         <path
           fillRule="evenodd"
           clipRule="evenodd"
