@@ -47,7 +47,9 @@ const Header = ({ name }: HeaderProps) => {
   return (
     <main className="relative w-full flex-col px-16 bg-white">
       <div className="flex justify-between py-3.5">
-        <Logo />
+        <figure onClick={() => router.push("/stock")}>
+          <Logo />
+        </figure>
         <div className="relative flex items-center gap-4">
           <div className="flex items-center gap-2">
             <span className="text-grey-700 font-regular text-p1">
