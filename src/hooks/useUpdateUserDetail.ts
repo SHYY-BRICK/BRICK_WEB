@@ -3,6 +3,7 @@ import { api } from "@/services/apis/axios";
 
 interface UpdateUserDetailRequest {
   nickname: string;
+  gender: string;
 }
 
 export const useUpdateUserDetail = () => {

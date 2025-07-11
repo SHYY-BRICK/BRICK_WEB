@@ -7,9 +7,10 @@ import React, { useState } from "react";
 import Boy from "@/assets/characters/boy.png";
 import Girl from "@/assets/characters/girl.png";
 import Image, { StaticImageData } from "next/image";
+import { useUpdateUserDetail } from "@/hooks/useUpdateUserDetail";
 
 interface CharacterCardProps {
-  name: "boy" | "girl";
+  name: "man" | "woman";
   src: StaticImageData;
   selected: boolean;
   onClick: () => void;
@@ -36,14 +37,34 @@ const CharacterCard = ({
 
 const Page = () => {
   const router = useRouter();
-  const [selected, setSelected] = useState<"boy" | "girl" | null>(null);
+  const [selected, setSelected] = useState<"man" | "woman" | null>(null);
+  const nickname = localStorage.getItem("nickname");
+  const { mutate } = useUpdateUserDetail();
 
-  const handleGoHome = () => {
-    if (selected) {
-      router.push("/home");
-    } else {
-      alert("캐릭터를 선택해주세요.");
+  const handleChooseUserDetail = async () => {
+    if (!selected) {
+      alert("캐릭터의 성별을 선택해주세요.");
+      return;
     }
+
+    if (!nickname) {
+      alert("닉네임이 없습니다. 다시 닉네임을 설정해주세요.");
+      router.push("/setname");
+      return;
+    }
+
+    mutate(
+      { nickname, gender: selected },
+      {
+        onSuccess: () => {
+          router.push("/stock");
+          console.log("성공");
+        },
+        onError: () => {
+          alert("캐릭터의 성별을 선택해주세요.");
+        },
+      },
+    );
   };
 
   return (
@@ -60,23 +81,23 @@ const Page = () => {
         <figure className="flex flex-col gap-6">
           <figure className="flex gap-5">
             <CharacterCard
-              name="boy"
+              name="man"
               src={Boy}
-              selected={selected === "boy"}
-              onClick={() => setSelected("boy")}
+              selected={selected === "man"}
+              onClick={() => setSelected("man")}
             />
             <CharacterCard
-              name="girl"
+              name="woman"
               src={Girl}
-              selected={selected === "girl"}
-              onClick={() => setSelected("girl")}
+              selected={selected === "woman"}
+              onClick={() => setSelected("woman")}
             />
           </figure>
           <figure className="ml-auto">
             <SmallButton
               text="완료하기"
               colorType="primary"
-              onClick={handleGoHome}
+              onClick={handleChooseUserDetail}
             />
           </figure>
         </figure>
