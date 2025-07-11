@@ -71,9 +71,9 @@ const Header = ({ name }: HeaderProps) => {
                   <div className="absolute right-0 mt-2 bg-white border shadow-md z-10 rounded-2xl border-grey-500">
                     <button
                       className="whitespace-nowrap px-6 py-3 text-p1 text-grey-800"
-                      // onClick={() => logout()}
+                      onClick={() => router.push("/setname")}
                     >
-                      닉네임 수정
+                      닉네임 및 캐릭터 수정
                     </button>
                     <button
                       className="whitespace-nowrap px-6 py-3 text-p1 text-grey-800"
