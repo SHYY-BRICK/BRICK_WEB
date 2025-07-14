@@ -29,8 +29,11 @@ const ItemAlert = ({ category, name, onClose }: ItemAlertProps) => {
         </button>
       </header>
 
-      <span className="text-p1 text-grey-800 font-regular pt-2 pb-6">
+      <span className="text-p1 text-grey-800 font-regular pt-2">
         {matchedItem.info}
+      </span>
+      <span className="text-p3 text-primary font-regular pb-6">
+        {matchedItem.rank}
       </span>
 
       <div className="flex items-center justify-center flex-1">
