@@ -1,4 +1,3 @@
-import Brick from "@/assets/coins/Brick";
 import Bubble from "@/assets/coins/Bubble";
 import Buma from "@/assets/coins/Buma";
 import Fla from "@/assets/coins/Fla";
@@ -21,13 +20,6 @@ type Coin = {
 };
 
 export const coins: Coin[] = [
-  {
-    id: 1,
-    label: "BRICK",
-    name: "BRICK (BRK)",
-    image: Brick,
-    mainInfo: "[BRICK의 기본 화폐]",
-  },
   {
     id: 2,
     label: "마루",
