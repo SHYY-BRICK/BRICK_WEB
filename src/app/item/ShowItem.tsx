@@ -5,6 +5,7 @@ import { accessoriesDate } from "@/data/accessories";
 import { clothesData } from "@/data/clothes";
 import ItemExplan from "@/components/ItemExplan";
 import { StaticImageData } from "next/image";
+import { usePostGetItem } from "@/hooks/usePostGetItem";
 
 interface Item {
   id: number;
@@ -44,11 +45,31 @@ const getRandomItem = (category: "accessory" | "clothes"): Item => {
 
 const ShowItem = ({ category, onClose }: ShowItemProps) => {
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
+  const { mutate } = usePostGetItem();
 
   useEffect(() => {
     const item = getRandomItem(category);
     setSelectedItem(item);
   }, [category]);
+
+  const handleComplete = () => {
+    if (!selectedItem) return;
+
+    mutate(
+      {
+        type: category,
+        name: selectedItem.name,
+      },
+      {
+        onSuccess: () => {
+          onClose();
+        },
+        onError: () => {
+          alert("아이템 저장에 실패했습니다. 다시 시도해주세요.");
+        },
+      },
+    );
+  };
 
   if (!selectedItem) return null;
 
@@ -57,7 +78,7 @@ const ShowItem = ({ category, onClose }: ShowItemProps) => {
       <ItemExplan
         category={category}
         name={selectedItem.name}
-        onClose={onClose}
+        onClose={handleComplete}
       />
     </main>
   );
