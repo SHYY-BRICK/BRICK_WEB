@@ -6,6 +6,8 @@ import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useLogout } from "@/hooks/useLogout";
 import { useUserDelete } from "@/hooks/useUserDelete";
+import { useGetUserInfo } from "@/hooks/useGetUserInfo";
+import { formatNumberWithCommas } from "@/utils/numberFomat";
 
 const Header = () => {
   const pathname = usePathname();
@@ -33,6 +35,8 @@ const Header = () => {
   const [name, setName] = useState<string | null>(null);
   const { mutate: logout } = useLogout();
   const { mutate: userDelete } = useUserDelete();
+  const { data: userInfo } = useGetUserInfo();
+  const currentMoney = userInfo?.money || 0;
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -59,7 +63,9 @@ const Header = () => {
             <span className="text-grey-700 font-regular text-p1">
               현재 내 자산
             </span>
-            <span className="text-primary">123,456</span>
+            <span className="text-primary">
+              {formatNumberWithCommas(currentMoney)}
+            </span>
           </div>
           {isLogin ? (
             <>
