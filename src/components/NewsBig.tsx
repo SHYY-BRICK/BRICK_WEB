@@ -21,7 +21,6 @@ const NewsBig = ({
 
   return (
     <main className="flex gap-6 p-6 w-full rounded-xl items-center bg-white">
-      <div className="w-[136px] h-[136px] bg-black" />
       <article className="flex flex-col gap-2 w-full h-full">
         <p className="text-h5 text-grey-1200 font-semibold">{title}</p>
         <p className="w-full text-p2 text-grey-700 font-regular">
