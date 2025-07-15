@@ -6,103 +6,85 @@ import CoinChart from "@/components/CoinChart";
 import Header from "@/components/Header";
 import SmallButton from "@/components/SmallButton";
 import StockMini from "@/components/StockMini";
-import React, { useState } from "react";
-
-const coins = [
-  {
-    stockName: "BRICK",
-    stockNum: 14,
-    stockPrice: 124320,
-    stockChange: -10000,
-    stockChangeRate: "22.7",
-  },
-  {
-    stockName: "마루",
-    stockNum: 20,
-    stockPrice: 90000,
-    stockChange: 5000,
-    stockChangeRate: "5.9",
-  },
-  {
-    stockName: "티나",
-    stockNum: 5,
-    stockPrice: 34000,
-    stockChange: -2000,
-    stockChangeRate: "2.1",
-  },
-  {
-    stockName: "IOJ",
-    stockNum: 8,
-    stockPrice: 75000,
-    stockChange: 3000,
-    stockChangeRate: "4.2",
-  },
-  {
-    stockName: "BUBBLE",
-    stockNum: 8,
-    stockPrice: 75000,
-    stockChange: 3000,
-    stockChangeRate: "4.2",
-  },
-  {
-    stockName: "space",
-    stockNum: 8,
-    stockPrice: 75000,
-    stockChange: 3000,
-    stockChangeRate: "4.2",
-  },
-  {
-    stockName: "하프",
-    stockNum: 8,
-    stockPrice: 75000,
-    stockChange: 3000,
-    stockChangeRate: "4.2",
-  },
-  {
-    stockName: "부마위키",
-    stockNum: 8,
-    stockPrice: 75000,
-    stockChange: 3000,
-    stockChangeRate: "4.2",
-  },
-  {
-    stockName: "티치몬",
-    stockNum: 8,
-    stockPrice: 75000,
-    stockChange: 3000,
-    stockChangeRate: "4.2",
-  },
-  {
-    stockName: "FLA",
-    stockNum: 8,
-    stockPrice: 75000,
-    stockChange: 3000,
-    stockChangeRate: "4.2",
-  },
-  {
-    stockName: "MATCH",
-    stockNum: 8,
-    stockPrice: 75000,
-    stockChange: 3000,
-    stockChangeRate: "4.2",
-  },
-];
+import { usePostTodayMoney } from "@/hooks/usePostTodayMoney";
+import { AxiosError } from "axios";
+import React, { useEffect, useState } from "react";
+import { useGetCoin } from "@/hooks/useGetCoin";
 
 const Page = () => {
-  const [selectedCoin, setSelectedCoin] = useState(coins[0]);
+  const { data: fluctuationData, isLoading } = useGetCoin();
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<"매수" | "매도" | null>(null);
+  const { mutate: postTodayMoney } = usePostTodayMoney();
+
+  const coins = (Array.isArray(fluctuationData) ? fluctuationData : []).map(
+    (coin) => {
+      const change = coin.currentPrice - coin.previousPrice;
+
+      return {
+        stockName: coin.coinName,
+        stockNum: coin.totalUserHolding,
+        stockPrice: coin.previousPrice,
+        stockChange: change,
+        stockChangeRate: coin.fluctuationPercent.toFixed(1),
+      };
+    },
+  );
+
+  const [selectedCoin, setSelectedCoin] = useState<(typeof coins)[0] | null>(
+    null,
+  );
+
+  useEffect(() => {
+    if (coins.length > 0) {
+      setSelectedCoin(coins[0]);
+    }
+  }, [fluctuationData]);
+
+  const handleDailyReward = () => {
+    postTodayMoney(undefined, {
+      onSuccess: () => {
+        alert("💰 일일 보상이 지급되었습니다!");
+      },
+      onError: (error: Error) => {
+        if (error instanceof AxiosError) {
+          const status = (error.response?.status as number) || 0;
+          if (status === 404) {
+            alert("유저 정보를 찾을 수 없습니다.");
+          } else if (status === 429) {
+            alert("이미 오늘의 보상을 받았습니다.");
+          } else {
+            alert("보상 지급에 실패했습니다. 다시 시도해주세요.");
+          }
+        } else {
+          alert("알 수 없는 오류가 발생했습니다.");
+        }
+      },
+    });
+  };
+
+  if (isLoading || !selectedCoin) {
+    return (
+      <div className="flex justify-center items-center h-screen text-lg">
+        코인 정보를 불러오는 중...
+      </div>
+    );
+  }
 
   return (
     <div className="w-[100vw] h-[100vh] overflow-hidden bg-grey-300">
-      <Header name="김시연" />
+      <Header />
       <main className="flex py-24 pl-[61px] w-full gap-[1.5625rem]">
         <section className="flex flex-col w-full">
           <header className="flex justify-between items-center pb-9">
             <p className="text-h2 text-[#2C2C2C] font-bold">
               {selectedCoin.stockName} coin
             </p>
-            <SmallButton text="일일 보상 받기" colorType="primary" />
+            <SmallButton
+              text="일일 보상 받기"
+              colorType="primary"
+              onClick={handleDailyReward}
+            />
           </header>
           <section className="w-full">
             <CoinChart coin={selectedCoin} />

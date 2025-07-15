@@ -63,7 +63,7 @@ export const coins: Coin[] = [
     id: 6,
     label: "부마위키",
     name: "부마위키 (BWK)",
-    smallName: "BMK",
+    smallName: "BWK",
     image: Buma,
     mainInfo: "[학생들을 위한 교내 위키 서비스]",
     info: "부산소마고의 학생, 선생님, 사건/사고 등의 역사를 기록하는 위키 서비스입니다.",

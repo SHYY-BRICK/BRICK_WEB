@@ -1,4 +1,3 @@
-import Brick from "@/assets/coins/Brick";
 import Maru from "@/assets/coins/Maru";
 import Tina from "@/assets/coins/Tina";
 import Ioj from "@/assets/coins/Ioj";
@@ -9,6 +8,7 @@ import Buma from "@/assets/coins/Buma";
 import Teachmon from "@/assets/coins/Teachmon";
 import Fla from "@/assets/coins/Fla";
 import Match from "@/assets/coins/Match";
+import { coins } from "@/data/coins";
 
 interface StockMiniProps {
   stockName: string;
@@ -21,17 +21,16 @@ interface StockMiniProps {
 }
 
 const stockIcons: Record<string, React.FC> = {
-  BRICK: Brick,
-  마루: Maru,
-  티나: Tina,
+  MRU: Maru,
+  TNA: Tina,
   IOJ: Ioj,
-  BUBBLE: Bubble,
-  space: Space,
-  하프: Harp,
-  부마위키: Buma,
-  티치몬: Teachmon,
+  BBB: Bubble,
+  SPC: Space,
+  HAP: Harp,
+  BWK: Buma,
+  TCM: Teachmon,
   FLA: Fla,
-  MATCH: Match,
+  MTC: Match,
 };
 
 const StockMini = ({
@@ -46,6 +45,7 @@ const StockMini = ({
   const IconComponent =
     stockIcons[stockName] ??
     (() => <div className="w-8 h-8 bg-grey-400 rounded-full" />);
+  const matchedCoin = coins.find((coin) => coin.smallName === stockName);
 
   return (
     <main
@@ -61,7 +61,7 @@ const StockMini = ({
           <IconComponent />
           <div className="flex flex-col">
             <span className="text-p1 text-grey-1200 font-[regular]">
-              {stockName}
+              {matchedCoin?.name ?? stockName}
             </span>
             <span className="text-caption text-grey-700 font-[medium]">
               {stockNum?.toLocaleString()}주
@@ -77,7 +77,7 @@ const StockMini = ({
               stockChange > 0 ? "text-red" : "text-blue"
             }`}
           >
-            {stockChange.toLocaleString()} ({stockChangeRate}%)원
+            {(stockChange ?? 0).toLocaleString()} ({stockChangeRate}%)원
           </span>
         </div>
       </div>
