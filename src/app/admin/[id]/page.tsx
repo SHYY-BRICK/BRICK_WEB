@@ -82,8 +82,6 @@ const Page = () => {
             <span className="w-full h-px bg-grey-500" />
           </article>
 
-          <div className="w-full h-56 bg-black" />
-
           <article className="flex flex-col gap-5">
             {isEditing ? (
               <textarea
