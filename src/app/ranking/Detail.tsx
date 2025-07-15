@@ -10,16 +10,9 @@ interface DetailModalProps {
   onClose: () => void;
   name: string;
   amount: number;
-  weeks: number;
 }
 
-const DetailModal = ({
-  isOpen,
-  onClose,
-  name,
-  amount,
-  weeks,
-}: DetailModalProps) => {
+const DetailModal = ({ isOpen, onClose, name, amount }: DetailModalProps) => {
   if (!isOpen) return null;
 
   return (
@@ -38,13 +31,6 @@ const DetailModal = ({
           <figure className="flex gap-3 text-h4 font-semibold pb-1">
             <p className="text-grey-1100">내 자산</p>
             <p className="text-primary">{amount.toLocaleString()}</p>
-          </figure>
-          <figure className="flex gap-3 text-h4 font-semibold">
-            <p className="text-grey-1100">내 코인</p>
-            <p className="text-primary">
-              {weeks}
-              <span className="text-grey-1100">주</span>
-            </p>
           </figure>
         </section>
       </main>

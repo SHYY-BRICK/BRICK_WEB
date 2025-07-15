@@ -58,14 +58,11 @@ export interface UserCoin {
 }
 
 export interface UserRank {
-  id: number;
   nickname: string;
-  role: "USER" | "ADMIN";
   gender: "man" | "woman";
   money: number;
-  clothes: UserItem[];
-  accessories: UserItem[];
-  coins: UserCoin[];
+  clothes: string;
+  accessories: string;
 }
 
 export interface CoinDetails {
