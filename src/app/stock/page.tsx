@@ -141,7 +141,13 @@ const Page = () => {
       {showModal && modalType && (
         <div className="fixed inset-0 z-50 bg-[rgba(39,39,39,0.2)] backdrop-blur-sm flex items-center justify-center">
           <div className="bg-white rounded-xl shadow-lg">
-            <CoinAlert status={modalType} onClose={() => setShowModal(false)} />
+            <CoinAlert
+              status={modalType}
+              onClose={() => setShowModal(false)}
+              coinName={selectedCoin.stockName}
+              coinPrice={selectedCoin.stockPrice}
+              coinNum={selectedCoin.stockNum}
+            />
           </div>
         </div>
       )}

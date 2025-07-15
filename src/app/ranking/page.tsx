@@ -29,12 +29,14 @@ const Page = () => {
   const { data, isLoading, isError } = useGetRank();
   const rankList = Array.isArray(data) ? data : [];
 
-  const topThree = rankList.slice(0, 3).map((user, index) => ({
+  const topThreeRaw = rankList.slice(0, 3).map((user, index) => ({
     name: user.nickname,
     rank: index + 1,
     amount: user.money,
     weeks: 2,
   }));
+
+  const topThree = [topThreeRaw[1], topThreeRaw[0], topThreeRaw[2]];
 
   const others = rankList.slice(3).map((user, index) => ({
     name: user.nickname,
@@ -44,7 +46,7 @@ const Page = () => {
   }));
 
   return (
-    <main className="w-full flex flex-col items-center bg-grey-300 pb-10">
+    <main className="w-full min-h-[100vh] flex flex-col items-center bg-grey-300 pb-10">
       <Header />
       <main className="flex flex-col items-center pt-44 gap-10">
         {isLoading && <p>랭킹 정보를 불러오는 중입니다...</p>}
@@ -54,14 +56,14 @@ const Page = () => {
             <section className="flex w-[37.5rem] relative">
               {topThree.map((user, idx) => {
                 const topStyles = [
-                  "-top-[230px]",
                   "-top-[170px]",
+                  "-top-[230px]",
                   "-top-[140px]",
                 ];
-                const heights = ["pb-[6.6875rem]", "pb-12", "pb-[1.0625rem]"];
+                const heights = ["pb-12", "pb-[6.6875rem]", "pb-[1.0625rem]"];
                 const rankColors = [
-                  "bg-primary",
                   "bg-[#27C6D7]",
+                  "bg-primary",
                   "bg-[#108D9B]",
                 ];
 

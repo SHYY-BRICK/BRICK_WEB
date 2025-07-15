@@ -17,7 +17,6 @@ const RankProfile = ({ rank, name, amount }: RankProfileProps) => {
       <article className="flex gap-[2.062rem] items-center">
         <p className="text-h5 text-primary font-semibold">{rank}</p>
         <figure className="flex gap-3">
-          <div className="w-[44px] h-[44px] rounded-full bg-black" />
           <figure className="flex items-center">
             <p className="text-h5 text-grey-1100 font-semibold">{name}</p>
           </figure>
