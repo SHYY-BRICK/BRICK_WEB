@@ -59,6 +59,7 @@ const Page = () => {
         onSuccess: () => {
           router.push("/stock");
           console.log("성공");
+          localStorage.setItem("gender", selected)
         },
         onError: () => {
           alert("캐릭터의 성별을 선택해주세요.");

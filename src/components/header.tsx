@@ -7,11 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useLogout } from "@/hooks/useLogout";
 import { useUserDelete } from "@/hooks/useUserDelete";
 
-interface HeaderProps {
-  name: string;
-}
-
-const Header = ({ name }: HeaderProps) => {
+const Header = () => {
   const pathname = usePathname();
   const router = useRouter();
   const [selectedTab, setSelectedTab] = useState("");
@@ -34,6 +30,7 @@ const Header = ({ name }: HeaderProps) => {
 
   const isAdminPage = pathname.startsWith("/admin");
   const navList = isAdminPage ? AdminNavContests : NavContents;
+  const name = localStorage.getItem("nickname");
   const { mutate: logout } = useLogout();
   const { mutate: userDelete } = useUserDelete();
 

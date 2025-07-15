@@ -88,7 +88,7 @@ const Page = () => {
 
   return (
     <div className="w-full min-h-[100vh] flex flex-col bg-grey-300">
-      <Header name={userInfo?.nickname || "유저"} />
+      <Header />
       <main className="py-[95px] px-[104px] gap-20">
         <section className="flex flex-col items-center gap-20">
           <section className="flex relative">

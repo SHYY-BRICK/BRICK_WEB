@@ -28,7 +28,7 @@ const Page = () => {
 
   return (
     <div className="flex flex-col items-center w-full min-h-[100vh] bg-grey-300">
-      <Header name="김시연" />
+      <Header />
       <main className="flex flex-col w-[57.5rem] gap-8 py-[2.3125rem]">
         <header
           className="flex items-center gap-1 cursor-pointer"

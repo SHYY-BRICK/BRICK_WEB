@@ -41,7 +41,7 @@ const Page = () => {
 
   return (
     <div className="bg-grey-300 min-w-[100vw] min-h-[100vh]">
-      <Header name="김시연" />
+      <Header />
       <main className="min-w-full min-h-full py-[2.375rem] px-[3.75rem] flex flex-col gap-[4.0625rem]">
         <section className="flex flex-col gap-4">
           <p className="text-h3 text-grey-1200 font-semibold">오늘의 뉴스</p>

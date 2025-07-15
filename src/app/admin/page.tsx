@@ -40,7 +40,7 @@ const Page = () => {
 
   return (
     <div className="flex flex-col bg-grey-300 w-[100vw] min-h-[100vh]">
-      <Header name="김시연" />
+      <Header />
       <main className="flex flex-col py-[38px] px-[60px] gap-4">
         <p className="text-h3 font-semibold text-grey-1200">검토해야할 뉴스</p>
         <section className="grid grid-cols-2 gap-x-6 gap-y-5">
