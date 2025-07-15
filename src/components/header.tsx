@@ -30,9 +30,16 @@ const Header = () => {
 
   const isAdminPage = pathname.startsWith("/admin");
   const navList = isAdminPage ? AdminNavContests : NavContents;
-  const name = localStorage.getItem("nickname");
+  const [name, setName] = useState<string | null>(null);
   const { mutate: logout } = useLogout();
   const { mutate: userDelete } = useUserDelete();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const nicknameFromStorage = localStorage.getItem("nickname");
+      setName(nicknameFromStorage);
+    }
+  }, []);
 
   useEffect(() => {
     const matched = navList.find((nav) => pathname.startsWith(nav.url));

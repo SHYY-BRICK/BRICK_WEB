@@ -4,7 +4,7 @@ export interface GetUserInfo {
   role: "USER" | "ADMIN";
   gender: "man" | "woman";
   money: number;
-  cloth: WearableItem[];
+  clothes: WearableItem[];
   accessories: WearableItem[];
   coins: UserCoin[];
 }

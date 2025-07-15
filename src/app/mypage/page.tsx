@@ -12,6 +12,7 @@ import { accessoriesDate } from "@/data/accessories";
 import { clothesData } from "@/data/clothes";
 import { initializeEquipment } from "@/utils/initAvatarState";
 import BoyNomal from "@/assets/characters/boyNomal.png";
+import GirlNomal from "@/assets/characters/girlNomal.png";
 import { formatNumberWithCommas } from "@/utils/numberFomat";
 import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 
@@ -24,6 +25,14 @@ const Page = () => {
   const [equippedAccessory, setEquippedAccessory] = useState<string | null>(
     null,
   );
+  const [gender, setGender] = useState<"man" | "woman" | null>(null);
+
+  useEffect(() => {
+    const storedGender = localStorage.getItem("gender");
+    if (storedGender === "man" || storedGender === "woman") {
+      setGender(storedGender);
+    }
+  }, []);
 
   const ITEMS_PER_PAGE = 3;
 
@@ -32,7 +41,9 @@ const Page = () => {
     direction: "prev" | "next",
   ) => {
     const detailList =
-      type === "clothes" ? userInfo?.cloth || [] : userInfo?.accessories || [];
+      type === "clothes"
+        ? userInfo?.clothes || []
+        : userInfo?.accessories || [];
 
     const currentIndex = type === "clothes" ? clothesIndex : accessoryIndex;
 
@@ -70,14 +81,16 @@ const Page = () => {
 
   useEffect(() => {
     if (userInfo) {
-      const defaultClothes = userInfo.cloth.find((item) => item.wear)?.name;
-      const defaultAccessory = userInfo.accessories.find(
+      const defaultClothes = userInfo.clothes?.find((item) => item.wear)?.name;
+      const defaultAccessory = userInfo.accessories?.find(
         (item) => item.wear,
       )?.name;
 
+      const isAllClothesUnworn = userInfo.clothes?.every((item) => !item.wear);
+
       initializeEquipment(
         {
-          clothes: defaultClothes || "",
+          clothes: isAllClothesUnworn ? "기본 옷" : defaultClothes || "",
           accessory: defaultAccessory || "",
         },
         setEquippedClothes,
@@ -92,7 +105,10 @@ const Page = () => {
       <main className="py-[95px] px-[104px] gap-20">
         <section className="flex flex-col items-center gap-20">
           <section className="flex relative">
-            <Image src={BoyNomal} alt="Boy" />
+            <Image
+              src={gender === "woman" ? GirlNomal : BoyNomal}
+              alt={gender === "woman" ? "Girl" : "Boy"}
+            />
             {equippedClothes && (
               <Image
                 src={
@@ -149,7 +165,7 @@ const Page = () => {
                 </figure>
                 <div className="flex items-center gap-2">
                   <div className="flex gap-4 overflow-hidden">
-                    {(userInfo?.cloth || [])
+                    {(userInfo?.clothes || [])
                       .slice(clothesIndex, clothesIndex + ITEMS_PER_PAGE)
                       .map((item) => (
                         <ItemExplan
