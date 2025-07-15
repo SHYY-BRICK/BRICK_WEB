@@ -10,6 +10,7 @@ import { usePostTodayMoney } from "@/hooks/usePostTodayMoney";
 import { AxiosError } from "axios";
 import React, { useEffect, useState } from "react";
 import { useGetCoin } from "@/hooks/useGetCoin";
+import { useGetCoinDetail } from "@/hooks/useGetCoinDetail";
 
 const Page = () => {
   const { data: fluctuationData, isLoading } = useGetCoin();
@@ -20,7 +21,6 @@ const Page = () => {
   const coins = (Array.isArray(fluctuationData) ? fluctuationData : []).map(
     (coin) => {
       const change = coin.currentPrice - coin.previousPrice;
-
       return {
         stockName: coin.coinName,
         stockNum: coin.totalUserHolding,
@@ -33,6 +33,10 @@ const Page = () => {
 
   const [selectedCoin, setSelectedCoin] = useState<(typeof coins)[0] | null>(
     null,
+  );
+
+  const { data: chartData, isLoading: chartLoading } = useGetCoinDetail(
+    selectedCoin?.stockName ?? null,
   );
 
   useEffect(() => {
@@ -48,7 +52,7 @@ const Page = () => {
       },
       onError: (error: Error) => {
         if (error instanceof AxiosError) {
-          const status = (error.response?.status as number) || 0;
+          const status = error.response?.status || 0;
           if (status === 404) {
             alert("유저 정보를 찾을 수 없습니다.");
           } else if (status === 429) {
@@ -87,7 +91,13 @@ const Page = () => {
             />
           </header>
           <section className="w-full">
-            <CoinChart coin={selectedCoin} />
+            {chartLoading ? (
+              <p className="text-center py-10 text-grey-700">
+                코인 상세 정보를 불러오는 중...
+              </p>
+            ) : (
+              <CoinChart coin={selectedCoin} chartData={chartData || []} />
+            )}
           </section>
           <figure className="flex w-full justify-end gap-6 pt-[94px]">
             <BigButton
@@ -129,7 +139,7 @@ const Page = () => {
         </aside>
       </main>
       {showModal && modalType && (
-        <div className="fixed inset-0 z-50 bg-[rgba(39,39,39,0.2)] backdrop-blur-sm  flex items-center justify-center">
+        <div className="fixed inset-0 z-50 bg-[rgba(39,39,39,0.2)] backdrop-blur-sm flex items-center justify-center">
           <div className="bg-white rounded-xl shadow-lg">
             <CoinAlert status={modalType} onClose={() => setShowModal(false)} />
           </div>
