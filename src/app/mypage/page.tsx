@@ -8,29 +8,15 @@ import LeftArrowIcon from "@/assets/LeftArrowIcon";
 import RightArrowIcon from "@/assets/RightArrowIcon";
 import MyTransaction from "@/components/MyTransaction";
 import SmallButton from "@/components/SmallButton";
-import { clothesData } from "@/data/clothes";
 import { accessoriesDate } from "@/data/accessories";
+import { clothesData } from "@/data/clothes";
 import { initializeEquipment } from "@/utils/initAvatarState";
 import BoyNomal from "@/assets/characters/boyNomal.png";
 import { formatNumberWithCommas } from "@/utils/numberFomat";
+import { useGetUserInfo } from "@/hooks/useGetUserInfo";
 
 const Page = () => {
-  const ClothesDetail = [
-    { id: 1, name: "흰티 청바지" },
-    { id: 2, name: "개발자룩" },
-    { id: 3, name: "노랑 체육복" },
-    { id: 4, name: "파랑 체육복" },
-    { id: 5, name: "맨투맨" },
-    { id: 6, name: "원피스" },
-  ];
-  const AccessoriesDetail = [
-    { id: 1, name: "에어팟" },
-    { id: 2, name: "콧수염" },
-    { id: 3, name: "뿔테안경" },
-    { id: 4, name: "새싹" },
-    { id: 5, name: "머리핀" },
-    { id: 6, name: "마스크" },
-  ];
+  const { data: userInfo } = useGetUserInfo();
 
   const [clothesIndex, setClothesIndex] = useState(0);
   const [accessoryIndex, setAccessoryIndex] = useState(0);
@@ -45,7 +31,9 @@ const Page = () => {
     type: "clothes" | "accessory",
     direction: "prev" | "next",
   ) => {
-    const detailList = type === "clothes" ? ClothesDetail : AccessoriesDetail;
+    const detailList =
+      type === "clothes" ? userInfo?.cloth || [] : userInfo?.accessories || [];
+
     const currentIndex = type === "clothes" ? clothesIndex : accessoryIndex;
 
     const newIndex =
@@ -81,17 +69,26 @@ const Page = () => {
   };
 
   useEffect(() => {
-    const defaultItems = {
-      clothes: "개발자룩",
-      accessory: "에어팟",
-    };
+    if (userInfo) {
+      const defaultClothes = userInfo.cloth.find((item) => item.wear)?.name;
+      const defaultAccessory = userInfo.accessories.find(
+        (item) => item.wear,
+      )?.name;
 
-    initializeEquipment(defaultItems, setEquippedClothes, setEquippedAccessory); // ✅
-  }, []);
+      initializeEquipment(
+        {
+          clothes: defaultClothes || "",
+          accessory: defaultAccessory || "",
+        },
+        setEquippedClothes,
+        setEquippedAccessory,
+      );
+    }
+  }, [userInfo]);
 
   return (
     <div className="w-full min-h-[100vh] flex flex-col bg-grey-300">
-      <Header name="김시연" />
+      <Header name={userInfo?.nickname || "유저"} />
       <main className="py-[95px] px-[104px] gap-20">
         <section className="flex flex-col items-center gap-20">
           <section className="flex relative">
@@ -106,7 +103,6 @@ const Page = () => {
                 className="absolute top-0 left-0 z-10"
               />
             )}
-
             {equippedAccessory && (
               <Image
                 src={
@@ -122,17 +118,13 @@ const Page = () => {
             </figure>
 
             <figure className="flex flex-col justify-center">
-              <p className="text-h3 font-semibold text-black pb-3">김시연</p>
+              <p className="text-h3 font-semibold text-black pb-3">
+                {userInfo?.nickname || "닉네임"}
+              </p>
               <figure className="flex gap-3 text-h4 font-semibold pb-1">
                 <p className="text-grey-1100">내 자산</p>
                 <p className="text-primary">
-                  {formatNumberWithCommas(210312480)}
-                </p>
-              </figure>
-              <figure className="flex gap-3 text-h4 font-semibold">
-                <p className="text-grey-1100">내 코인</p>
-                <p className="text-primary">
-                  100000<span className="text-grey-1100">주</span>
+                  {userInfo ? formatNumberWithCommas(userInfo.money) : 0}
                 </p>
               </figure>
             </figure>
@@ -157,21 +149,20 @@ const Page = () => {
                 </figure>
                 <div className="flex items-center gap-2">
                   <div className="flex gap-4 overflow-hidden">
-                    {ClothesDetail.slice(
-                      clothesIndex,
-                      clothesIndex + ITEMS_PER_PAGE,
-                    ).map((item) => (
-                      <ItemExplan
-                        key={item.id}
-                        category="clothes"
-                        name={item.name}
-                        isMine={true}
-                        onClose={() => console.log("Item closed")}
-                        onEquip={handleEquip}
-                        onUnequip={handleUnequip}
-                        equippedItem={equippedClothes}
-                      />
-                    ))}
+                    {(userInfo?.cloth || [])
+                      .slice(clothesIndex, clothesIndex + ITEMS_PER_PAGE)
+                      .map((item) => (
+                        <ItemExplan
+                          key={item.id}
+                          category="clothes"
+                          name={item.name}
+                          isMine={true}
+                          onClose={() => {}}
+                          onEquip={handleEquip}
+                          onUnequip={handleUnequip}
+                          equippedItem={equippedClothes}
+                        />
+                      ))}
                   </div>
                 </div>
               </figure>
@@ -195,24 +186,26 @@ const Page = () => {
                 </figure>
                 <div className="flex items-center gap-2">
                   <div className="flex gap-4 overflow-hidden">
-                    {AccessoriesDetail.slice(
-                      accessoryIndex,
-                      accessoryIndex + ITEMS_PER_PAGE,
-                    ).map((item) => (
-                      <ItemExplan
-                        key={item.id}
-                        category="accessory"
-                        name={item.name}
-                        isMine={true}
-                        onEquip={handleEquip}
-                        onUnequip={handleUnequip}
-                        equippedItem={equippedAccessory}
-                      />
-                    ))}
+                    {(userInfo?.accessories || [])
+                      .slice(accessoryIndex, accessoryIndex + ITEMS_PER_PAGE)
+                      .map((item) => (
+                        <ItemExplan
+                          key={item.id}
+                          category="accessory"
+                          name={item.name}
+                          isMine={true}
+                          onClose={() => {}}
+                          onEquip={handleEquip}
+                          onUnequip={handleUnequip}
+                          equippedItem={equippedAccessory}
+                        />
+                      ))}
                   </div>
                 </div>
               </figure>
             </section>
+
+            {/* Coin Transaction Section */}
             <section className="flex flex-col w-full justify-center items-center">
               <figure className="flex flex-col items-center justify-center gap-4 w-fit">
                 <figure className="flex w-full ">
@@ -221,52 +214,15 @@ const Page = () => {
                   </p>
                 </figure>
                 <div className="grid grid-cols-2 gap-x-48">
-                  {[
-                    {
-                      type: "매수",
-                      label: "마루",
-                      amount: "12323451",
-                      date: "2024.02.13",
-                      period: "4주",
-                    },
-                    {
-                      type: "매수",
-                      label: "마루",
-                      amount: "99999999",
-                      date: "2024.03.01",
-                      period: "2주",
-                    },
-                    {
-                      type: "매도",
-                      label: "마루",
-                      amount: "88888888",
-                      date: "2024.04.01",
-                      period: "3주",
-                    },
-                    {
-                      type: "매수",
-                      label: "마루",
-                      amount: "77777777",
-                      date: "2024.05.01",
-                      period: "1주",
-                    },
-                    {
-                      type: "매도",
-                      label: "마루",
-                      amount: "66666666",
-                      date: "2024.06.01",
-                      period: "5주",
-                    },
-                  ].map((item, index) => (
-                    <div key={index}>
-                      <MyTransaction
-                        type={item.type as "매수" | "매도"}
-                        label={item.label}
-                        amount={item.amount}
-                        date={item.date}
-                        period={item.period}
-                      />
-                    </div>
+                  {(userInfo?.coins || []).map((coin) => (
+                    <MyTransaction
+                      key={coin.id}
+                      type={parseFloat(coin.price) > 0 ? "매수" : "매도"}
+                      label={coin.coinName}
+                      amount={coin.price}
+                      date={coin.date.split("T")[0]}
+                      period={`${coin.nowAmount}주`}
+                    />
                   ))}
                 </div>
               </figure>

@@ -22,7 +22,7 @@ const MyTransaction = ({
 }: MyTransactionProps) => {
   const typeColor = type === "매수" ? "text-buy" : "text-sell";
 
-  const matchedCoin = coins.find((coin) => coin.label === label);
+  const matchedCoin = coins.find((coin) => coin.smallName === label);
   const Icon = matchedCoin?.image as ComponentType | null;
 
   return (
