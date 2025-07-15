@@ -15,26 +15,27 @@ interface CoinData {
   stockPrice: number;
 }
 
-interface CoinChartProps {
-  coin: CoinData;
+interface ChartEntry {
+  date: string;
+  price: string;
 }
 
-const CoinChart = ({ coin }: CoinChartProps) => {
-  // coin.stockPrice를 기준으로 임의의 변동 그래프 생성 (예시)
-  const data = [
-    { time: "10 am", value: coin.stockPrice * 0.85 },
-    { time: "10:30 am", value: coin.stockPrice * 0.95 },
-    { time: "11 am", value: coin.stockPrice * 0.9 },
-    { time: "11:30 am", value: coin.stockPrice * 1.05 },
-    { time: "12 pm", value: coin.stockPrice * 1.1 },
-    { time: "12:30 pm", value: coin.stockPrice * 1.07 },
-    { time: "1 pm", value: coin.stockPrice * 1.15 },
-  ];
+interface CoinChartProps {
+  coin: CoinData;
+  chartData: ChartEntry[];
+}
+
+const CoinChart = ({ coin, chartData }: CoinChartProps) => {
+  const formattedData = chartData.map((entry) => ({
+    time: entry.date,
+    value: Number(entry.price),
+  }));
+  console.log(coin);
 
   return (
     <div className="w-full h-[470px] rounded-xl bg-white p-6 shadow-sm">
       <ResponsiveContainer width="100%" height="100%">
-        <AreaChart data={data}>
+        <AreaChart data={formattedData}>
           <defs>
             <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#14b8a6" stopOpacity={0.3} />
