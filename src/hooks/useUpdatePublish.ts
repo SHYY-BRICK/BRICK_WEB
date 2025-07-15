@@ -5,7 +5,7 @@ interface PostPublish {
   articleId: number;
 }
 
-export const usePostPublish = () => {
+export const useUpdatePublish = () => {
   return useMutation({
     mutationFn: async ({ articleId }: PostPublish) => {
       await api.patch(`/article/publish/${articleId}`);

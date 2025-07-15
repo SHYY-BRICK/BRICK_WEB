@@ -7,12 +7,12 @@ import { useRouter } from "next/navigation";
 import { useGetAdminAllNews } from "@/hooks/useGetAdminAllNews";
 import { GetAdminAllNews } from "@/types/apis.types";
 import SmallButton from "@/components/SmallButton";
-import { usePostPublish } from "@/hooks/usePostPublish";
+import { useUpdatePublish } from "@/hooks/useUpdatePublish";
 
 const Page = () => {
   const router = useRouter();
   const { data, isLoading, isError } = useGetAdminAllNews();
-  const { mutate: publishArticle } = usePostPublish();
+  const { mutate: publishArticle } = useUpdatePublish();
 
   const handleClick = (news: GetAdminAllNews) => {
     const query = new URLSearchParams({
