@@ -15,6 +15,7 @@ import BoyNomal from "@/assets/characters/boyNomal.png";
 import GirlNomal from "@/assets/characters/girlNomal.png";
 import { formatNumberWithCommas } from "@/utils/numberFomat";
 import { useGetUserInfo } from "@/hooks/useGetUserInfo";
+import { useUpdateItem } from "@/hooks/useUpdateItem";
 
 const Page = () => {
   const { data: userInfo } = useGetUserInfo();
@@ -26,6 +27,7 @@ const Page = () => {
     null,
   );
   const [gender, setGender] = useState<"man" | "woman" | null>(null);
+  const { mutate: updateItem } = useUpdateItem();
 
   useEffect(() => {
     const storedGender = localStorage.getItem("gender");
@@ -79,6 +81,25 @@ const Page = () => {
     }
   };
 
+  const handleSave = () => {
+    if (!userInfo) return;
+
+    updateItem(
+      {
+        clothes: equippedClothes === "기본 옷" ? "" : equippedClothes || "",
+        accessories: equippedAccessory || "",
+      },
+      {
+        onSuccess: () => {
+          alert("장착 정보가 저장되었습니다.");
+        },
+        onError: () => {
+          alert("저장에 실패했습니다. 다시 시도해주세요.");
+        },
+      },
+    );
+  };
+
   useEffect(() => {
     if (userInfo) {
       const defaultClothes = userInfo.clothes?.find((item) => item.wear)?.name;
@@ -130,7 +151,11 @@ const Page = () => {
               />
             )}
             <figure className="absolute top-64 right-0">
-              <SmallButton text="저장" colorType="primary" />
+              <SmallButton
+                text="저장"
+                colorType="primary"
+                onClick={handleSave}
+              />
             </figure>
 
             <figure className="flex flex-col justify-center">
