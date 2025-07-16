@@ -147,6 +147,9 @@ const Page = () => {
               coinName={selectedCoin.stockName}
               coinPrice={selectedCoin.stockPrice}
               coinNum={selectedCoin.stockNum}
+              onSuccess={() => {
+                window.location.reload();
+              }}
             />
           </div>
         </div>

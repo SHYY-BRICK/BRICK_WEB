@@ -9,6 +9,7 @@ interface CoinStatusProps {
   coinName: string;
   coinPrice: string;
   coinNum?: number;
+  onSuccess?: () => void;
 }
 
 const CoinAlert = ({
@@ -17,6 +18,7 @@ const CoinAlert = ({
   coinName,
   coinPrice,
   coinNum = 0,
+  onSuccess,
 }: CoinStatusProps) => {
   const currentMoney = localStorage.getItem("money") || "0";
   const parsedPrice = parseFloat(coinPrice);
@@ -58,7 +60,7 @@ const CoinAlert = ({
           queryClient.invalidateQueries({ queryKey: ["getUserInfo"] });
 
           onClose();
-          onClose();
+          onSuccess?.();
         },
         onError: () => {
           alert(`${status} 요청 중 문제가 발생했습니다.`);
