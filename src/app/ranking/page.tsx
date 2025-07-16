@@ -1,13 +1,14 @@
 "use client";
 
 import Header from "@/components/Header";
-import Image from "next/image";
+// import Image from "next/image";
 import React, { useState } from "react";
-import Boy from "@/assets/characters/boy.png";
+// import Boy from "@/assets/characters/boy.png";
 import RankProfile from "@/components/RankProfile";
 import DetailModal from "./Detail";
 import { useGetRank } from "@/hooks/useGetRank";
 import { formatNumberWithCommas } from "@/utils/numberFomat";
+import { renderCharacter } from "@/utils/renderCharacter";
 
 const Page = () => {
   const [selectedPerson, setSelectedPerson] = useState<null | {
@@ -15,6 +16,9 @@ const Page = () => {
     rank: number;
     amount: number;
     weeks: number;
+    gender: "man" | "woman";
+    clothes: string;
+    accessories: string;
   }>(null);
 
   const handleClickPerson = (person: {
@@ -22,6 +26,9 @@ const Page = () => {
     rank: number;
     amount: number;
     weeks: number;
+    gender: "man" | "woman";
+    clothes: string;
+    accessories: string;
   }) => {
     setSelectedPerson(person);
   };
@@ -34,6 +41,9 @@ const Page = () => {
     rank: index + 1,
     amount: user.money,
     weeks: 2,
+    gender: user.gender,
+    clothes: user.clothes,
+    accessories: user.accessories,
   }));
 
   const topThree = [topThreeRaw[1], topThreeRaw[0], topThreeRaw[2]];
@@ -43,6 +53,9 @@ const Page = () => {
     rank: index + 4,
     amount: user.money,
     weeks: 1,
+    gender: user.gender,
+    clothes: user.clothes,
+    accessories: user.accessories,
   }));
 
   return (
@@ -73,11 +86,13 @@ const Page = () => {
                     onClick={() => handleClickPerson(user)}
                     className="flex flex-col items-center w-[12.5rem] cursor-pointer"
                   >
-                    <Image
-                      src={Boy}
-                      alt="Boy"
-                      className={`absolute ${topStyles[idx]}`}
-                    />
+                    {renderCharacter({
+                      gender: user.gender,
+                      clothes: user.clothes,
+                      accessories: user.accessories,
+                      topStyle: topStyles[idx],
+                    })}
+
                     <article
                       className={`flex flex-col items-center w-full bg-white pt-[1.75rem] ${
                         heights[idx]
@@ -128,7 +143,11 @@ const Page = () => {
         <DetailModal
           isOpen={!!selectedPerson}
           onClose={() => setSelectedPerson(null)}
-          {...selectedPerson}
+          name={selectedPerson.name}
+          amount={selectedPerson.amount}
+          gender={selectedPerson.gender}
+          clothes={selectedPerson.clothes}
+          accessories={selectedPerson.accessories}
         />
       )}
     </main>
