@@ -7,7 +7,9 @@ interface UpdateArticle {
 }
 
 export const useUpdateArticle = () => {
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken =
+    typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
+  // const accessToken = localStorage.getItem("accessToken");
 
   return useMutation({
     mutationFn: async (body: UpdateArticle) => {

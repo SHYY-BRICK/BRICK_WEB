@@ -39,11 +39,17 @@ const Page = () => {
   const router = useRouter();
   const [selected, setSelected] = useState<"man" | "woman" | null>(null);
   const [nickname, setNickname] = useState<string | null>(null);
-  useEffect(() => {
-    const storedNickname = localStorage.getItem("nickname");
-    setNickname(storedNickname);
-  }, []);
+  const [isMounted, setIsMounted] = useState(false);
   const { mutate } = useUpdateUserDetail();
+
+  useEffect(() => {
+    // 브라우저 환경에서만 localStorage 접근
+    if (typeof window !== "undefined") {
+      const storedNickname = localStorage.getItem("nickname");
+      setNickname(storedNickname);
+      setIsMounted(true);
+    }
+  }, []);
 
   const handleChooseUserDetail = async () => {
     if (!selected) {
@@ -61,9 +67,10 @@ const Page = () => {
       { nickname, gender: selected },
       {
         onSuccess: () => {
+          if (typeof window !== "undefined") {
+            localStorage.setItem("gender", selected);
+          }
           router.push("/stock");
-          console.log("성공");
-          localStorage.setItem("gender", selected);
         },
         onError: () => {
           alert("캐릭터의 성별을 선택해주세요.");
@@ -71,6 +78,8 @@ const Page = () => {
       },
     );
   };
+
+  if (!isMounted) return null; // localStorage 값 로딩 전에는 렌더링하지 않음
 
   return (
     <main className="w-[100vw] h-[100vh] flex justify-center items-center">

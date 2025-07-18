@@ -4,6 +4,7 @@ import { api } from "@/services/apis/axios";
 export const useLogout = () => {
   return useMutation({
     mutationFn: async () => {
+      if (typeof window === "undefined") return;
       const accessToken = localStorage.getItem("accessToken");
       const refreshToken = localStorage.getItem("refreshToken");
 

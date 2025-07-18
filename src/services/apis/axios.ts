@@ -11,9 +11,11 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-  const token = localStorage.getItem("accessToken");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  if (typeof window !== "undefined") {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
   }
   return config;
 });
@@ -47,6 +49,7 @@ api.interceptors.response.use(
     const isTokenExpired =
       error.response?.status === 401 &&
       !originalRequest._retry &&
+      typeof window !== "undefined" &&
       localStorage.getItem("refreshToken");
 
     if (isTokenExpired) {
@@ -68,28 +71,34 @@ api.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        const refreshToken = localStorage.getItem("refreshToken");
+        if (typeof window !== "undefined") {
+          const refreshToken = localStorage.getItem("refreshToken");
 
-        const res = await axios.post(`${BASE_URL}/auth/reissue`, null, {
-          headers: {
-            Authorization: `Bearer ${refreshToken}`,
-          },
-        });
+          const res = await axios.post(`${BASE_URL}/auth/reissue`, null, {
+            headers: {
+              Authorization: `Bearer ${refreshToken}`,
+            },
+          });
 
-        const newAccessToken = res.data.accessToken;
-        localStorage.setItem("accessToken", newAccessToken);
-        api.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
-        processQueue(null, newAccessToken);
+          const newAccessToken = res.data.accessToken;
 
-        originalRequest.headers = {
-          ...originalRequest.headers,
-          Authorization: `Bearer ${newAccessToken}`,
-        };
-        return api(originalRequest);
+          localStorage.setItem("accessToken", newAccessToken);
+          api.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
+          processQueue(null, newAccessToken);
+
+          originalRequest.headers = {
+            ...originalRequest.headers,
+            Authorization: `Bearer ${newAccessToken}`,
+          };
+
+          return api(originalRequest);
+        }
       } catch (refreshError) {
         processQueue(refreshError, null);
-        localStorage.clear();
-        window.location.href = "/";
+        if (typeof window !== "undefined") {
+          localStorage.clear();
+          window.location.href = "/";
+        }
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
