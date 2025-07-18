@@ -51,7 +51,7 @@ const Page = () => {
 
   return (
     <div className="relative min-h-screen flex flex-col items-center bg-grey-300 overflow-y-auto">
-      <Header name="김시연" />
+      <Header />
 
       {mode === "main" && (
         <main className="flex gap-[6.25rem] z-10 mt-12">
