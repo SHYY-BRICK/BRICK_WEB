@@ -3,7 +3,7 @@
 import Logo from "@/assets/Logo";
 import SmallButton from "@/components/SmallButton";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Boy from "@/assets/characters/boy.png";
 import Girl from "@/assets/characters/girl.png";
 import Image, { StaticImageData } from "next/image";
@@ -38,7 +38,11 @@ const CharacterCard = ({
 const Page = () => {
   const router = useRouter();
   const [selected, setSelected] = useState<"man" | "woman" | null>(null);
-  const nickname = localStorage.getItem("nickname");
+  const [nickname, setNickname] = useState<string | null>(null);
+  useEffect(() => {
+    const storedNickname = localStorage.getItem("nickname");
+    setNickname(storedNickname);
+  }, []);
   const { mutate } = useUpdateUserDetail();
 
   const handleChooseUserDetail = async () => {
@@ -59,7 +63,7 @@ const Page = () => {
         onSuccess: () => {
           router.push("/stock");
           console.log("성공");
-          localStorage.setItem("gender", selected)
+          localStorage.setItem("gender", selected);
         },
         onError: () => {
           alert("캐릭터의 성별을 선택해주세요.");

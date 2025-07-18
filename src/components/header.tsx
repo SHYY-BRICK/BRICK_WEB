@@ -37,7 +37,11 @@ const Header = () => {
   const { mutate: userDelete } = useUserDelete();
   const { data: userInfo } = useGetUserInfo();
   const currentMoney = userInfo?.money || 0;
-  localStorage.setItem("money", currentMoney.toString());
+  useEffect(() => {
+    if (typeof window !== "undefined" && userInfo?.money !== undefined) {
+      localStorage.setItem("money", userInfo.money.toString());
+    }
+  }, [userInfo?.money]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {

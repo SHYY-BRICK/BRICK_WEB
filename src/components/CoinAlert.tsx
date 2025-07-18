@@ -1,5 +1,5 @@
 import CloseIcon from "@/assets/CloseIcon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePostCoinSellBuy } from "@/hooks/usePostCoinSellBuy";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -20,7 +20,12 @@ const CoinAlert = ({
   coinNum = 0,
   onSuccess,
 }: CoinStatusProps) => {
-  const currentMoney = localStorage.getItem("money") || "0";
+  const [currentMoney, setCurrentMoney] = useState("0");
+
+  useEffect(() => {
+    const money = localStorage.getItem("money") || "0";
+    setCurrentMoney(money);
+  }, []);
   const parsedPrice = parseFloat(coinPrice);
   const [inputAmount, setInputAmount] = useState(0);
 

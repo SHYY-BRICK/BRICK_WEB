@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useLogin } from "@/hooks/useLogin";
 
-const KakaoRedirect = () => {
+const Page = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const code = searchParams.get("code");
@@ -39,4 +39,4 @@ const KakaoRedirect = () => {
   return null;
 };
 
-export default KakaoRedirect;
+export default Page;
