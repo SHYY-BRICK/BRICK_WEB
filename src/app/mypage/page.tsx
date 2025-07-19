@@ -258,7 +258,7 @@ const Page = () => {
                   {(userInfo?.coins || []).map((coin) => (
                     <MyTransaction
                       key={coin.id}
-                      type={parseFloat(coin.price) > 0 ? "매수" : "매도"}
+                      type={parseFloat(coin.price) > 0 ? "매도" : "매수"}
                       label={coin.coinName}
                       amount={coin.price}
                       date={coin.date.split("T")[0]}
