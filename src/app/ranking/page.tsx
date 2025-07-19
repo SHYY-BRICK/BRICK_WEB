@@ -69,9 +69,9 @@ const Page = () => {
             <section className="flex w-[37.5rem] relative">
               {topThree.map((user, idx) => {
                 const topStyles = [
-                  "-top-[170px]",
+                  "-top-[200px]",
                   "-top-[230px]",
-                  "-top-[140px]",
+                  "-top-[170px]",
                 ];
                 const heights = ["pb-12", "pb-[6.6875rem]", "pb-[1.0625rem]"];
                 const rankColors = [
@@ -100,7 +100,7 @@ const Page = () => {
                         idx === 0
                           ? "border border-grey-300"
                           : idx === 1
-                          ? "rounded-bl-[1.25rem]"
+                          ? ""
                           : "rounded-br-[1.25rem]"
                       }`}
                     >
