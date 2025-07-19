@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Header from "@/components/Header";
 import NewsBig from "@/components/NewsBig";
 import { useRouter } from "next/navigation";
@@ -16,6 +16,8 @@ const Page = () => {
   const { mutate: publishArticle } = useUpdatePublish();
   const { mutate: generateNews } = usePostNews();
 
+  const [isPublishing, setIsPublishing] = useState(false);
+
   const handleClick = (news: GetAdminAllNews) => {
     const query = new URLSearchParams({
       title: news.title,
@@ -26,6 +28,14 @@ const Page = () => {
 
     router.push(`/admin/${news.id}?${query}`);
   };
+
+  if (isPublishing) {
+    return (
+      <div className="flex justify-center items-center min-h-screen text-lg text-white bg-black/70">
+        출판 요청 중입니다...
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
@@ -80,15 +90,22 @@ const Page = () => {
                 title={news.title}
                 description={news.content}
                 date={`${news.date} ${news.time}`}
-                onClickPublish={() =>
+                onClickPublish={() => {
+                  setIsPublishing(true);
                   publishArticle(
                     { articleId: news.id },
                     {
-                      onSuccess: () => alert("출판 완료되었습니다."),
-                      onError: () => alert("출판에 실패했습니다."),
+                      onSuccess: () => {
+                        alert("출판 완료되었습니다.");
+                        setIsPublishing(false);
+                      },
+                      onError: () => {
+                        alert("출판에 실패했습니다.");
+                        setIsPublishing(false);
+                      },
                     },
-                  )
-                }
+                  );
+                }}
                 publish
               />
             </article>
