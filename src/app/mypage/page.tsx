@@ -39,7 +39,7 @@ const Page = () => {
   const ITEMS_PER_PAGE = 3;
 
   const handleSlide = (
-    type: "clothes" | "accessory",
+    type: "clothes" | "accessories",
     direction: "prev" | "next",
   ) => {
     const detailList =
@@ -64,7 +64,7 @@ const Page = () => {
     }
   };
 
-  const handleEquip = (category: "clothes" | "accessory", name: string) => {
+  const handleEquip = (category: "clothes" | "accessories", name: string) => {
     if (category === "clothes") {
       setEquippedClothes(name);
     } else {
@@ -73,7 +73,7 @@ const Page = () => {
   };
 
   const DEFAULT_CLOTHES = "기본 옷";
-  const handleUnequip = (category: "clothes" | "accessory") => {
+  const handleUnequip = (category: "clothes" | "accessories") => {
     if (category === "clothes") {
       setEquippedClothes(DEFAULT_CLOTHES);
     } else {
@@ -146,7 +146,7 @@ const Page = () => {
                   accessoriesDate.find((a) => a.name === equippedAccessory)
                     ?.image || ""
                 }
-                alt="accessory"
+                alt="accessories"
                 className="absolute top-0 left-0 z-20"
               />
             )}
@@ -217,10 +217,10 @@ const Page = () => {
                     구매한 악세서리
                   </p>
                   <figure className="flex ml-auto">
-                    <button onClick={() => handleSlide("accessory", "prev")}>
+                    <button onClick={() => handleSlide("accessories", "prev")}>
                       <LeftArrowIcon />
                     </button>
-                    <button onClick={() => handleSlide("accessory", "next")}>
+                    <button onClick={() => handleSlide("accessories", "next")}>
                       <RightArrowIcon />
                     </button>
                   </figure>
@@ -232,7 +232,7 @@ const Page = () => {
                       .map((item) => (
                         <ItemExplan
                           key={item.id}
-                          category="accessory"
+                          category="accessories"
                           name={item.name}
                           isMine={true}
                           onClose={() => {}}
