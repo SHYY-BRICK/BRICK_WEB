@@ -5,12 +5,12 @@ import { clothesData } from "@/data/clothes";
 import SmallButton from "./SmallButton";
 
 interface ItemProps {
-  category: "clothes" | "accessory";
+  category: "clothes" | "accessories";
   name: string;
   isMine?: boolean;
   onClose?: () => void;
-  onEquip?: (category: "clothes" | "accessory", name: string) => void;
-  onUnequip?: (category: "clothes" | "accessory") => void;
+  onEquip?: (category: "clothes" | "accessories", name: string) => void;
+  onUnequip?: (category: "clothes" | "accessories") => void;
   equippedItem?: string | null;
 }
 

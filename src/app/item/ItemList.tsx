@@ -8,7 +8,7 @@ import { accessoriesDate } from "@/data/accessories";
 import ItemAlert from "@/components/ItemAlert";
 
 interface ClothesListProps {
-  category: "clothes" | "accessory";
+  category: "clothes" | "accessories";
 }
 
 const ClothesList = ({ category }: ClothesListProps) => {

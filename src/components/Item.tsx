@@ -4,7 +4,7 @@ import { accessoriesDate } from "@/data/accessories";
 import { clothesData } from "@/data/clothes";
 
 interface ItemProps {
-  category: "clothes" | "accessory";
+  category: "clothes" | "accessories";
   name: string;
 }
 

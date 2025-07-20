@@ -30,14 +30,14 @@ const itemInfo = [
 ];
 
 const Page = () => {
-  const [category, setCategory] = useState<"clothes" | "accessory">(
-    "accessory",
+  const [category, setCategory] = useState<"clothes" | "accessories">(
+    "accessories",
   );
   const [mode, setMode] = useState<"main" | "list" | "animation" | "show">(
     "main",
   );
 
-  const handleDraw = (selectedCategory: "clothes" | "accessory") => {
+  const handleDraw = (selectedCategory: "clothes" | "accessories") => {
     setCategory(selectedCategory);
     setMode("animation");
     setTimeout(() => {
@@ -66,7 +66,7 @@ const Page = () => {
                       setCategory("clothes");
                       setMode("list");
                     } else {
-                      setCategory("accessory");
+                      setCategory("accessories");
                       setMode("list");
                     }
                   }}
@@ -77,7 +77,7 @@ const Page = () => {
                   text={detail.draw}
                   colorType="primary"
                   onClick={() =>
-                    handleDraw(detail.id === 1 ? "clothes" : "accessory")
+                    handleDraw(detail.id === 1 ? "clothes" : "accessories")
                   }
                 />
               </figure>

@@ -5,7 +5,7 @@ import Image from "next/image";
 import React from "react";
 
 interface ItemAlertProps {
-  category: "clothes" | "accessory";
+  category: "clothes" | "accessories";
   name: string;
   onClose: () => void;
 }

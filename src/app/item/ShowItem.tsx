@@ -16,7 +16,7 @@ interface Item {
 }
 
 interface ShowItemProps {
-  category: "accessory" | "clothes";
+  category: "accessories" | "clothes";
   onClose: () => void;
 }
 
@@ -28,7 +28,7 @@ const getWeight = (rank: string): number => {
   return 0;
 };
 
-const getRandomItem = (category: "accessory" | "clothes"): Item => {
+const getRandomItem = (category: "accessories" | "clothes"): Item => {
   const data = category === "clothes" ? clothesData : accessoriesDate;
   const weightedList: Item[] = [];
 
