@@ -38,7 +38,7 @@ const Header = () => {
   const { data: userInfo } = useGetUserInfo();
   const currentMoney = userInfo?.money || 0;
   useEffect(() => {
-    if (typeof window !== "undefined" && userInfo?.money !== undefined) {
+    if (typeof window !== "undefined" && userInfo?.money != null) {
       localStorage.setItem("money", userInfo.money.toString());
     }
   }, [userInfo?.money]);
