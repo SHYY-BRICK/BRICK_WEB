@@ -118,11 +118,11 @@ const Page = () => {
             />
           </figure>
         </section>
-        <aside className="w-[25%] py-10 rounded-l-2xl bg-white max-h-[calc(100vh-6rem)] overflow-y-auto">
+        <aside className="w-[25%] py-10 rounded-l-2xl bg-white max-h-[calc(100vh-12rem)] overflow-y-auto">
           <p className="px-5 pb-6 text-h3 font-semibold text-[#212730]">
             보유 코인
           </p>
-          <section className="flex flex-col gap-2">
+          <section className="flex flex-col  gap-2">
             {coins.map((coin, index) => (
               <StockMini
                 key={index}
